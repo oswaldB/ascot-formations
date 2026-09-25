@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Au-delà du chat : comment piloter votre risque URSSAF — ASCOT Formations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+:root{--ink:#24221f;--green:#90c819;--green-deep:#537a0b;--cream:#f4e9df;--paper:#fffdf9;--stone:#817c74;--line:#e3dad0;--dark:#242320;--radius:22px;--space:8px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+.shell{max-width:1280px;margin:auto;padding:0 42px}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav{height:76px;display:flex;align-items:center;gap:32px}
+.brand{font-family:Nunito,sans-serif;font-weight:900;font-size:28px;letter-spacing:-.055em}
+.brand span{color:var(--green)}
+.links{display:flex;gap:25px;margin-left:auto;font-size:13px;font-weight:700}
+.nav-cta,.btn{background:var(--green);border:2px solid var(--green);padding:14px 22px;border-radius:100px;font-weight:800;display:inline-flex;align-items:center;gap:15px;color:var(--ink)}
+.nav-cta{font-size:13px}
+.btn:hover,.nav-cta:hover{background:#b0dc45;border-color:#b0dc45}
+.btn.secondary{background:transparent;border-color:var(--ink)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:Nunito,sans-serif;letter-spacing:-.045em}
+h1{font-size:clamp(44px,5.5vw,72px);line-height:1.03;margin-bottom:24px}
+h2{font-size:clamp(34px,4vw,54px);line-height:1.08;margin-bottom:16px}
+h3{font-size:24px;line-height:1.18}
+p{line-height:1.65;color:#5f5b55}
+strong{color:var(--ink)}
+.hero{background:var(--cream);padding:62px 0 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero-copy{padding-bottom:50px}
+.hero-copy p{font-size:18px;max-width:520px;color:var(--ink)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.hero-art{align-self:center;display:flex;align-items:center;justify-content:center}
+.hero-art img{width:100%;border-radius:28px 28px 0 0;mix-blend-mode:multiply}
+.meta{font-size:13px;font-weight:700}
+.meta b{color:var(--green-deep)}
+section{padding:95px 0}
+.form{display:flex;flex-direction:column;gap:14px;max-width:420px;margin:28px auto 0}
+.form input{background:white;border:2px solid var(--line);border-radius:100px;padding:14px 22px;font:inherit;font-size:15px;color:var(--ink);outline:none}
+.form input:focus{border-color:var(--green)}
+.form button{width:100%;justify-content:center}
+.form-note{font-size:13px;color:var(--ink);margin-top:8px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:34px}
+.section-head p{max-width:450px}
+.section-head-center{flex-direction:column;align-items:center;text-align:center}
+.section-head-center p{max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.card{background:white;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 22px rgba(36,34,31,.035)}
+.card-media{background:var(--cream);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-media img{width:100%;height:100%;object-fit:cover;object-position:bottom}
+.tag{display:inline-block;border-radius:100px;padding:7px 11px;background:#e8f5cd;color:#385600;font-size:11px;font-weight:800}
+.card-body{padding:24px}
+.card-body h3{margin:15px 0 10px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:25px;padding-top:18px;font-size:13px;font-weight:800}
+.band{background:var(--dark);color:white}
+.band p{color:#ccc9c3}
+.band h2{color:white}
+.band .eyebrow{color:#b2e64c}
+.small{font-size:13px}
+.footer{background:var(--cream);padding:42px 0}
+.footer .shell{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.source{font-size:12px}
+ul.notes{list-style:none;padding:0;margin:0}
+ul.notes li{position:relative;padding-left:24px;margin:14px 0;line-height:1.55;color:#5f5b55}
+ul.notes li::before{content:"•";position:absolute;left:0;color:var(--green-deep);font-weight:800}
+ul.check li::before{content:"✓";color:var(--green)}
+ul.cross li::before{content:"✕";color:#c45d5d}
+.photo-guides{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.photo-guides img{border-radius:22px}
+.cta-band{background:var(--green);padding:80px 0;text-align:center}
+.cta-band h2{color:var(--ink);margin-bottom:12px}
+.cta-band p{color:var(--ink);margin-bottom:28px}
+.cta-band .btn{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.cta-band .btn:hover{background:#3a3834;border-color:#3a3834}
+.profile{display:flex;gap:28px;align-items:center}
+.profile img{width:140px;height:140px;border-radius:50%;object-fit:cover;flex-shrink:0}
+@media(max-width:850px){
+.shell{padding:0 22px}
+.links{display:none}
+.hero-grid,.grid,.grid-2,.photo-guides{grid-template-columns:1fr}
+.hero{padding-top:50px}
+.hero-copy{padding-bottom:0}
+.hero-art img{max-height:460px;object-fit:cover;object-position:bottom}
+section{padding:65px 0}
+.section-head{display:block}
+.nav-cta{margin-left:auto}
+.footer .shell{display:block}
+.profile{flex-direction:column;text-align:center}
+.cta-band{padding:55px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <nav class="shell">
+    <a class="brand" href="#"><img alt="Logo Ascot Formations" style="height:48px;width:auto;display:block" src="https://cdn.stedzstudio.com/clay-ascot-formations-logo-2.png"></a>
+    <div class="links">
+      <a href="#probleme"></a>&nbsp;&nbsp;&nbsp;<a href="#bonus"></a>
+    </div>
+    <a class="nav-cta" href="#inscription">Je réserve ma place ↗</a>
+  </nav>
+</div>
+
+<header class="hero" id="accueil">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">Webinaire gratuit · Dirigeants d’ETI</div>
+      <h1>Comment piloter votre risque URSSAF&nbsp;</h1><h1>à&nbsp;l'heure&nbsp;de&nbsp;l'IA?</h1>
+      <p><strong>Vos charges tombent à date fixe. Vos revenus, beaucoup moins.</strong></p>
+      <p>Et si vous pouviez agir sur les mécanismes qui mettent votre trésorerie sous pression, avant la prochaine échéance ?</p>
+      <p>En une heure, découvrez quatre leviers concrets pour produire plus efficacement, sécuriser vos revenus, maîtriser vos coûts et encaisser plus vite. Vous verrez aussi comment créer avec l’IA un premier tableau de bord pour repérer où agir.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#inscription">Je réserve ma place gratuite <span>↗</span></a>
+      </div>
+      <div class="meta"><b>Jeudi 1er octobre 2026</b> à 19 h, heure de Paris · En ligne · Gratuit</div>
+    </div>
+    <div class="hero-art">
+      <img alt="Illustration webinaire pilotage trésorerie" src="https://cdn.stedzstudio.com/ursaff.png">
+    </div>
+  </div>
+</header>
+
+<section id="probleme">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Le problème</div>
+        <h2>Le problème commence bien avant l’échéance URSSAF</h2>
+      </div>
+    </div>
+    <p>Une entreprise peut avoir des commandes, des clients et une activité soutenue, tout en manquant de trésorerie au mauvais moment.</p>
+    <p>Une prestation réalisée attend une validation avant d’être facturée. Une facture reste bloquée chez le client. Les coûts augmentent sans être visibles assez tôt. Chaque hausse d’activité exige davantage de travail administratif. Puis arrive une échéance qui, elle, n’attend pas.</p>
+    <p><strong>Le risque URSSAF est alors un signal : il est temps de regarder comment l’entreprise produit, facture, dépense et encaisse.</strong></p>
+    <p>Ce webinaire vous aidera à reconnaître ces points de tension et à déterminer où l’intelligence artificielle peut apporter un résultat concret. Nous parlerons des solutions à utiliser, des conditions pour qu’elles fonctionnent et des erreurs à éviter.</p>
+  </div>
+</section>
+
+<section class="mock" id="leviers" style="background:var(--cream)">
+  <div class="shell">
+    <div class="section-head section-head-center">
+      <div>
+        <div class="eyebrow">Quatre leviers</div>
+        <h2>Quatre leviers pour reprendre la main</h2>
+      </div>
+      <p class="small" style="text-align: start;">Pour chaque levier : un problème reconnaissable, une application possible de l’IA, ce qu’il faut vérifier avant de se lancer et un indicateur pour juger du résultat</p></div><div class="grid grid-2"><article class="card"><div class="card-media"><img alt="Produire davantage" style="object-fit:scale-down" src="https://cdn.stedzstudio.com/ouvrier.png">
+        </div>
+        <div class="card-body">
+          <span class="tag">Levier 1</span>
+          <h3>Produire davantage sans augmenter les effectifs au même rythme</h3>
+          <p class="small">Quelles tâches répétitives occupent vos équipes sans nécessiter toute leur expertise ? Nous verrons comment les simplifier, les automatiser ou les assister avec l’IA, et comment mesurer le temps réellement libéré.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-media">
+          <img alt="Sécuriser les revenus" style="object-fit:scale-down" src="https://cdn.stedzstudio.com/comptable.png">
+        </div>
+        <div class="card-body">
+          <span class="tag">Levier 2</span>
+          <h3>Sécuriser l’entrée des revenus</h3>
+          <p class="small">Entre la commande et la facture, combien d’étapes peuvent retarder votre chiffre d’affaires ? Nous examinerons comment suivre les prestations réalisées, repérer les validations manquantes et éviter qu’un dossier reste bloqué dans un passage de relais.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-media">
+          <img alt="Réduire les coûts" style="object-fit:scale-down" src="https://cdn.stedzstudio.com/obese.png">
+        </div>
+        <div class="card-body">
+          <span class="tag">Levier 3</span>
+          <h3>Réduire votre structure de coûts</h3>
+          <p class="small">Où partez-vous du temps et de la marge sans le voir clairement ? Nous verrons comment rendre certains coûts plus visibles, repérer les opérations qui se répètent et comparer le gain attendu au coût réel d’une solution.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-media">
+          <img alt="Accélérer les paiements" style="object-fit:scale-down" src="https://cdn.stedzstudio.com/0b8b647b-5673-4d2d-89b3-c5bd40b01e5f.png">
+        </div>
+        <div class="card-body">
+          <span class="tag">Levier 4</span>
+          <h3>Accélérer les paiements clients</h3>
+          <p class="small">Une facture envoyée n’est pas encore de l’argent disponible. Nous parlerons de détection précoce des blocages, de relances adaptées et de suivi des délais d’encaissement.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="shell photo-guides">
+    <div>
+      <div class="eyebrow">Démonstration</div>
+      <h2>D’une question de dirigeant à un tableau de bord</h2>
+      <p><strong>« Qu’est-ce qui immobilise ma trésorerie aujourd’hui ? »</strong></p>
+      <p>Nous partirons de cette question pour montrer comment le <em>vibe coding</em> peut aider à créer un premier outil de pilotage adapté à votre activité. Le tableau de bord pourra, par exemple, faire apparaître les prestations non facturées, les factures en retard et l’évolution de certains coûts.</p>
+      <p>Vous verrez comment formuler le besoin, obtenir un prototype avec l’IA et contrôler les données et les calculs avant de vous en servir pour décider. Le but est que vous puissiez juger <strong>ce qu’un outil créé avec l’IA peut vous apporter dans votre entreprise</strong>.</p>
+    </div>
+    <img alt="Aperçu tableau de bord IA" src="https://cdn.stedzstudio.com/eb7cd1dc-51c7-4cfd-9b9b-26b1b67b134a.png">
+  </div>
+</section>
+
+<section id="bonus" style="background:var(--cream)">
+  <div class="shell">
+    <div class="section-head section-head-center">
+      <div>
+        <div class="eyebrow">Bonus</div>
+        <h2>Deux bonus pour prolonger la session</h2>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <article class="card">
+        <div class="card-media">
+          <img alt="Checklist des quatre leviers" style="object-fit:scale-down" src="https://cdn.stedzstudio.com/498c8c47-0711-49cf-ad3a-fd81cd3112e9.png">
+        </div>
+        <div class="card-body">
+          <span class="tag">Bonus 1</span>
+          <h3>La checklist des quatre leviers</h3>
+          <p class="small">À l’issue du webinaire, vous recevrez une checklist pour identifier <strong>le levier le plus facilement actionnable chez vous</strong>.</p>
+          <p class="small">Pour chacun des quatre leviers, elle vous aidera à vérifier si le problème est fréquent, si les données existent, si un test limité est possible et si son résultat peut être mesuré. Vous repartirez avec une priorité à examiner avec vos équipes.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-media">
+          <img alt="Témoignage Christophe Boug" src="https://cdn.stedzstudio.com/asset-3d3nysumwsivgyaxi5alowhe.jpg">
+        </div>
+        <div class="card-body">
+          <span class="tag">Bonus 2</span>
+          <h3>Le témoignage de Christophe Bough</h3>
+          <p class="small"><strong>« Quand la trésorerie dérape : ce que j’aurais voulu voir venir »</strong></p>
+          <p class="small">Ancien dirigeant d’une PME de 30 personnes, Christophe Boug partagera son expérience des difficultés de trésorerie et les signaux qu’il aurait aimé voir plus tôt. Son témoignage donnera une perspective de terrain aux sujets abordés pendant le webinaire.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="public">
+  <div class="shell">
+    <div class="grid grid-2">
+      <div>
+        <div class="eyebrow">Pour vous si…</div>
+        <h2>Ce webinaire est pour vous si…</h2>
+        <ul class="notes check">
+          <li>Vos échéances sociales mettent régulièrement votre trésorerie sous tension.</li>
+          <li>Votre activité progresse, mais vos effectifs et vos coûts doivent suivre presque au même rythme.</li>
+          <li>Des commandes ou prestations réalisées tardent à être facturées.</li>
+          <li>Vous réalisez du chiffre d’affaires, mais vos clients paient trop tard.</li>
+          <li>Vous manquez de visibilité sur les coûts ou les blocages qui pèsent sur votre marge.</li>
+          <li>Vous voulez savoir <strong>où commencer avec l’IA</strong>, avec un usage mesurable plutôt qu’une démonstration de plus.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow">Moins utile si…</div>
+        <h2>Ce webinaire sera moins utile si…</h2>
+        <ul class="notes cross">
+          <li>Vous cherchez un avis juridique sur un contrôle URSSAF en cours.</li>
+          <li>Vous souhaitez uniquement apprendre à rédiger des prompts.</li>
+          <li>Vous attendez qu’un outil résolve seul un problème de trésorerie, sans examiner vos processus.</li>
+          <li>Vous cherchez une garantie de résultat financier avant d’étudier votre situation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="animateur" style="background:var(--cream)">
+  <div class="shell">
+    <div class="photo-guides">
+      <div>
+        <div class="eyebrow">Animateur</div>
+        <h2>Une session animée par Oswald Bernard</h2>
+        <p>Oswald Bernard enseigne à l’<b>Institut Mines-Télécom Business School </b>et intervient comme formateur référent en intelligence artificielle chez ASCOT Formation. Il a travaillé sur des projets pour des organisations telles que <b>HSBC et le Groupe VYV,</b> et développe des solutions d’<b>IA souveraine en Europe.</b></p>
+        <p>Son point de départ : <font color="#24221f"><strong>vite,&nbsp;il&nbsp;faut&nbsp;aller&nbsp;vite.</strong></font></p>
+      </div>
+      <img alt="Portrait Oswald Bernard" src="https://cdn.stedzstudio.com/intevanant-picture-1.png">
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="inscription">
+  <div class="shell" style="text-align:center">
+    <div class="eyebrow" style="color:var(--green-deep)">Inscription</div>
+    <h2>Réservez votre place</h2>
+    <p><strong>Jeudi 1er octobre 2026 · 19 h, heure de Paris · En ligne · Gratuit</strong></p>
+    <p>Vous n’avez aucune donnée confidentielle à fournir pour participer. Vous recevrez les informations de connexion après votre inscription.</p>
+    <form class="form" action="#" method="post" onsubmit="event.preventDefault()">
+      <input type="text" name="prenom" placeholder="Votre prénom" required="">
+      <input type="email" name="email" placeholder="Votre email" required="">
+      <button type="submit" class="btn">Je réserve ma place gratuite <span>↗</span></button>
+      <p class="form-note">Vous allez recevoir l’invitation par email.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="shell">
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <a class="brand" href="#"><img alt="Logo Ascot Formations" style="height:48px;width:auto;display:block" src="https://cdn.stedzstudio.com/clay-ascot-formations-logo-2.png"></a><img alt="Logo Qualiopi" style="height:48px;width:auto;display:block" src="https://cdn.stedzstudio.com/logoqualiopi-300dpi-avec-marianne.png"><div class="source">Webinaire gratuit pour dirigeants d’ETI.</div>
+    </div>
+    <div class="source">© 2026 ASCOT Formations</div>
+  </div>
+</footer>
+
+
+
+</body></html>

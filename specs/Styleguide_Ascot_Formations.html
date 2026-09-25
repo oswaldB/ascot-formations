@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ASCOT Formations — Style guide</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"><style>
+:root{--ink:#24221f;--green:#90c819;--green-deep:#537a0b;--cream:#f4e9df;--paper:#fffdf9;--stone:#817c74;--line:#e3dad0;--dark:#242320;--radius:22px;--space:8px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',Arial,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}img{display:block;max-width:100%}.shell{max-width:1280px;margin:auto;padding:0 42px}.top{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}nav{height:76px;display:flex;align-items:center;gap:32px}.brand{font-family:Nunito,sans-serif;font-weight:900;font-size:28px;letter-spacing:-.055em}.brand span{color:var(--green)}.links{display:flex;gap:25px;margin-left:auto;font-size:13px;font-weight:700}.nav-cta,.btn{background:var(--green);border:2px solid var(--green);padding:14px 22px;border-radius:100px;font-weight:800;display:inline-flex;align-items:center;gap:15px}.nav-cta{font-size:13px}.btn:hover,.nav-cta:hover{background:#b0dc45;border-color:#b0dc45}.btn.secondary{background:transparent;border-color:var(--ink)}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep)}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Nunito,sans-serif;letter-spacing:-.045em}h1{font-size:clamp(50px,6vw,86px);line-height:1.03;margin-bottom:24px}h2{font-size:clamp(34px,4vw,54px);line-height:1.08;margin-bottom:16px}h3{font-size:24px;line-height:1.18}p{line-height:1.65;color:#5f5b55}.hero{background:var(--cream);padding:62px 0 0;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.hero-copy{padding-bottom:50px}.hero-copy p{font-size:18px;max-width:520px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}.hero-art{align-self:end}.hero-art img{width:100%;border-radius:28px 28px 0 0;mix-blend-mode:multiply}.meta{font-size:13px;font-weight:700}.meta b{color:var(--green-deep)}section{padding:95px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:34px}.section-head p{max-width:450px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:white;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 22px rgba(36,34,31,.035)}.card-media{height:210px;background:var(--cream);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.card-media img{width:100%;height:100%;object-fit:cover;object-position:bottom}.card-media.logo-img img{object-fit:contain;padding:34px;background:#fff}.tag{display:inline-block;border-radius:100px;padding:7px 11px;background:#e8f5cd;color:#385600;font-size:11px;font-weight:800}.card-body{padding:24px}.card-body h3{margin:15px 0 10px}.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:25px;padding-top:18px;font-size:13px;font-weight:800}.band{background:var(--dark);color:white}.band p{color:#ccc9c3}.tokens{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.swatch{background:white;border-radius:16px;overflow:hidden;color:var(--ink)}.swatch .color{height:100px}.swatch .label{padding:13px;font-size:12px;font-weight:700}.swatch small{display:block;color:#706c66;margin-top:4px}.type-samples{display:grid;grid-template-columns:1fr 1fr;gap:25px}.type-box{border:1px solid var(--line);border-radius:var(--radius);padding:35px;background:white}.type-box strong{font-family:Nunito;font-size:46px;line-height:1;letter-spacing:-.05em}.type-box p{margin:18px 0 0}.spec{font-size:12px;color:var(--stone);font-weight:700;margin:10px 0}.components{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.component{border:1px solid var(--line);border-radius:var(--radius);background:white;padding:30px}.component h3{font-size:20px}.pills{display:flex;gap:10px;flex-wrap:wrap}.pill{padding:10px 15px;border:1px solid var(--line);border-radius:100px;font-size:13px;font-weight:700}.pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}.field{width:100%;border:1.5px solid var(--line);border-radius:13px;padding:15px 18px;font:inherit}.field:focus{outline:3px solid #d8ecad;border-color:var(--green-deep)}.photo-guides{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.photo-guides img{border-radius:22px}.notes{font-size:15px}.notes li{margin:12px 0;line-height:1.55}.rule{border-top:1px solid var(--line);padding-top:22px;margin-top:28px}.small{font-size:13px}.footer{background:var(--cream);padding:42px 0}.footer .shell{display:flex;justify-content:space-between;gap:20px;align-items:center}.source{font-size:12px}.mock{background:#f7f3ed}.mock .card{transition:transform .2s,box-shadow .2s}.mock .card:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(36,34,31,.12)}@media(max-width:850px){.shell{padding:0 22px}.links{display:none}.hero-grid,.type-samples,.components,.photo-guides{grid-template-columns:1fr}.hero{padding-top:50px}.hero-copy{padding-bottom:0}.hero-art img{max-height:460px;object-fit:cover;object-position:bottom}.grid{grid-template-columns:1fr 1fr}.tokens{grid-template-columns:repeat(3,1fr)}section{padding:65px 0}}@media(max-width:580px){.grid{grid-template-columns:1fr}.tokens{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.nav-cta{margin-left:auto}.footer .shell{display:block}}
+.placeholder{background:linear-gradient(135deg,#e9e0d5,#f8f1e9);border:2px dashed #baa997;border-radius:22px;min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:26px;color:#494037}.placeholder strong{font:800 19px Nunito,sans-serif;max-width:380px}.placeholder small{font-size:12px;color:#72675d;line-height:1.45}.placeholder-icon{font-size:36px;line-height:1;color:#90c819}.placeholder-hero{min-height:520px;border-radius:28px 28px 0 0}.placeholder-photo{min-height:420px}.placeholder-logo{min-height:170px;min-width:260px;flex:0 0 260px}.placeholder-card{min-height:210px;width:100%;border:none;border-radius:0;background:linear-gradient(135deg,#eae0d4,#f5e9dc)}.placeholder-card strong{font-size:16px} @media(max-width:850px){.placeholder-hero{min-height:340px}} </style></head><body><!-- Rendered by PI WEB plugin: html-preview --><!-- Rendered by PI WEB plugin: html-preview --><!-- Rendered by PI WEB plugin: html-preview --><!-- Rendered by PI WEB plugin: html-preview --><div class="top"><nav class="shell"><a class="brand" href="#accueil"><img alt="Logo Ascot" src="https://cdn.stedzstudio.com/clay-ascot-formations-logo.png" style="height:48px;width:auto;display:block"></a><div class="links"><a href="#direction">Direction</a><a href="#couleurs">Couleurs</a><a href="#typographie">Typographie</a><a href="#composants">Composants</a><a href="#images">Images</a></div><a class="nav-cta" href="#apercu">Voir l’aperçu ↗</a></nav></div>
+<header class="hero" id="accueil"><div class="shell hero-grid"><div class="hero-copy"><div class="eyebrow">Style guide · Ascot Formations · v1</div><h1>La formation qui <span style="color:var(--green-deep)">passe à l’action.</span></h1><p>Une identité chaleureuse et concrète pour celles et ceux qui font tourner l’entreprise. Le catalogue clair de TutoMile rencontre l’univers en pâte modelée d’Ascot.</p><div class="hero-actions"><a class="btn" href="#couleurs">Explorer le style guide <span>↗</span></a><a class="btn secondary" href="#apercu">Voir les cartes</a></div><div class="meta"><b>01</b> Système visuel &nbsp;·&nbsp; <b>02</b> Composants &nbsp;·&nbsp; <b>03</b> Exemple de page</div></div><div class="hero-art"><img alt="Visuel principal Ascot" src="https://cdn.stedzstudio.com/ascot-formations-en-action.png"></div></div></header>
+<section id="direction"><div class="shell"><div class="eyebrow">01 / Direction artistique</div><div class="section-head"><h2>Accessible, vivant,<br>ancré dans les métiers.</h2><p>Reprendre la hiérarchie lisible d’une plateforme de cours : promesse forte, catégories, cartes de formations, preuves et appels à l’action. L’adaptation Ascot donne une présence tangible aux métiers et aux résultats.</p></div><div class="grid"><div class="component"><h3>Une structure qui guide</h3><p>Grand titre, sous-texte bref, action primaire évidente. Grille de cours et filtres pour découvrir rapidement une formation.</p></div><div class="component"><h3>Une matière reconnaissable</h3><p>Logo et personnages modelés, textures manuelles, volume doux, ombres naturelles. Les scènes montrent des gestes et outils de travail.</p></div><div class="component"><h3>Une parole concrète</h3><p>Des compétences que l’on pratique. Dire ce que l’apprenant saura faire plutôt que promettre une transformation abstraite.</p></div></div></div></section>
+<section class="band" id="couleurs"><div class="shell"><div class="eyebrow" style="color:#b2e64c">02 / Palette</div><div class="section-head"><h2>Du charbon, du vert,<br>une toile chaleureuse.</h2><p>Valeurs numériques proposées d’après les visuels fournis : elles servent de jetons web, sans prétendre constituer les couleurs officielles de la marque.</p></div><div class="tokens"><div class="swatch"><div class="color" style="background:#24221f"></div><div class="label">Charbon <small>#24221F · textes</small></div></div><div class="swatch"><div class="color" style="background:#90c819"></div><div class="label">Vert Ascot <small>#90C819 · action</small></div></div><div class="swatch"><div class="color" style="background:#537a0b"></div><div class="label">Vert profond <small>#537A0B · accent</small></div></div><div class="swatch"><div class="color" style="background:#f4e9df"></div><div class="label">Argile claire <small>#F4E9DF · section</small></div></div><div class="swatch"><div class="color" style="background:#fffdf9"></div><div class="label">Papier <small>#FFFDF9 · fond</small></div></div><div class="swatch"><div class="color" style="background:#817c74"></div><div class="label">Pierre <small>#817C74 · secondaire</small></div></div></div><p class="small" style="margin:25px 0 0">Usage : texte charbon sur vert ; texte charbon sur argile ; vert profond pour les liens textuels. Éviter le texte blanc sur le vert vif.</p></div></section>
+<section id="typographie"><div class="shell"><div class="eyebrow">03 / Typographie</div><div class="section-head"><h2>Des titres généreux.<br>Un contenu sans friction.</h2><p>Les lettres du visuel sont modelées à la main : aucune police numérique ne peut les reproduire exactement. Nunito sert de compagnon arrondi pour l’interface ; DM Sans garde le contenu lisible.</p></div><div class="type-samples"><div class="type-box"><div class="eyebrow">Titres · Nunito ExtraBold / Black</div><strong>Apprendre.<br>Appliquer. Avancer.</strong><div class="spec">H1 72–86 px · H2 40–54 px · H3 24 px · interligne 1.03–1.18</div></div><div class="type-box"><div class="eyebrow">Texte · DM Sans</div><p style="font-size:20px;color:var(--ink)">Des formations utiles, construites autour de votre quotidien et des compétences qui comptent vraiment.</p><div class="spec">Texte courant 16–18 px · interligne 1.6 · graisse 400–600</div></div></div><p class="rule small">Logo : utiliser le visuel Ascot fourni dans les supports de marque ; ne pas le recomposer en police d’interface. Sur le web, prévoir à terme un export transparent et un SVG validé.</p></div></section>
+<section id="composants" class="mock"><div class="shell"><div class="eyebrow">04 / Composants</div><div class="section-head"><h2>Une interface simple<br>à parcourir.</h2><p>La composition emprunte à TutoMile les catégories, les cartes de cours, les bénéfices et les appels à l’action visibles, adaptés au ton Ascot.</p></div><div class="components"><div class="component"><h3>Boutons</h3><div class="pills"><button class="btn">Découvrir les formations ↗</button><button class="btn secondary">Voir le programme</button></div><p class="small" style="margin:20px 0 0">Primaire vert, secondaire transparent ; forme capsule ; libellé qui décrit l’action.</p></div><div class="component"><h3>Catégories</h3><div class="pills"><span class="pill active">Toutes les formations</span><span class="pill">IA</span><span class="pill">Bureautique</span><span class="pill">Management</span><span class="pill">Sécurité</span></div><p class="small" style="margin:20px 0 0">Sélection charbon ; catégories non sélectionnées bordées d’un trait fin.</p></div><div class="component"><h3>Champs</h3><label for="search" class="spec" style="display:block;margin-bottom:8px">RECHERCHER UNE FORMATION</label><input id="search" class="field" placeholder="Une compétence, un métier…"><p class="small" style="margin:16px 0 0">Libellé visible et focus vert ; ne pas compter uniquement sur le placeholder.</p></div><div class="component"><h3>Badges &amp; indicateurs</h3><div class="pills"><span class="tag">Atelier pratique</span><span class="tag">Débutant</span><span class="tag">Éligible équipe</span></div><p class="small" style="margin:20px 0 0">Badges courts pour le format, le niveau et la cible. Données de cours séparées du titre.</p></div></div></div></section>
+<section id="images"><div class="shell"><div class="eyebrow">05 / Direction photo &amp; illustration</div><div class="section-head"><h2>Montrer le travail<br>en train de se faire.</h2><p>Les deux références jointes définissent la matière, les personnages et la gamme chromatique. La photographie de cours doit prolonger ce même univers visuel.</p></div><div class="photo-guides"><img alt="Photo / illustration métier" src="https://cdn.stedzstudio.com/image-gen-1.png"><div><h3>Règles de création</h3><ul class="notes"><li>Personnages stylisés en pâte modelée, expressions accueillantes, gestes professionnels crédibles.</li><li>Décor métier reconnaissable : outils, uniforme, situation de travail.</li><li>Lumière diffuse, ombres souples, fond argile ou crème, texture visible.</li><li>Une action principale par image ; sujet suffisamment grand pour la carte de cours.</li><li>Prévoir une zone calme pour les titres superposés si nécessaire.</li></ul><div class="rule"><h3>À éviter</h3><p>Photographie corporate générique, personnages en costume sans contexte, surfaces plastiques brillantes, logos inventés, texte généré dans les images.</p></div></div></div><div class="rule" style="display:flex;gap:35px;align-items:center"><img alt="Logo Ascot" src="https://cdn.stedzstudio.com/clay-ascot-formations-logo-1.png"><p class="small">Le logo illustré contient son fond blanc d’origine. Pour une navigation sur fond coloré ou pour des tailles réduites, préparer une déclinaison graphique dédiée.</p></div></div></section>
+<section class="mock" id="apercu"><div class="shell"><div class="eyebrow">06 / Application · aperçu de catalogue</div><div class="section-head"><div><h2>Des formations faites<br>pour être utilisées.</h2><p>Exemples de présentation — intitulés et durées illustratifs.</p></div><a class="btn" href="#accueil">Explorer les formations ↗</a></div><div class="pills" style="margin-bottom:25px"><span class="pill active">Toutes</span><span class="pill">IA &amp; outils</span><span class="pill">Excel</span><span class="pill">Relation client</span><span class="pill">Sécurité</span></div><div class="grid"><article class="card"><div class="card-media"><img alt="Personnage Ascot présentant des outils d’intelligence artificielle" src="https://cdn.stedzstudio.com/ia-guy.png"></div><div class="card-body"><span class="tag">IA &amp; outils</span><h3>Utiliser l’IA dans son travail</h3><p class="small">Des exercices concrets pour gagner du temps sur les tâches du quotidien.</p><div class="card-footer"><span>Atelier · 4 h</span><span>Voir la formation ↗</span></div></div></article><article class="card"><div class="card-media"><img alt="Personnage Ascot illustrant Excel" src="https://placehold.co/360x210/e3dad0/494037.png?text=Excel"></div><div class="card-body"><span class="tag">Bureautique</span><h3>Excel pour les équipes terrain</h3><p class="small">Organiser, vérifier et présenter les informations qui comptent.</p><div class="card-footer"><span>Formation · 1 jour</span><span>Voir la formation ↗</span></div></div></article><article class="card"><div class="card-media"><img alt="Personnages Ascot représentant des métiers de terrain" src="https://placehold.co/360x210/e3dad0/494037.png?text=M%C3%A9tiers"></div><div class="card-body"><span class="tag">Métiers</span><h3>Les bons gestes en situation</h3><p class="small">Apprendre par la pratique, avec des scénarios proches de la réalité.</p><div class="card-footer"><span>Atelier · 1 jour</span><span>Voir la formation ↗</span></div></div></article></div></div></section>
+<footer class="footer"><div class="shell"><div><div class="brand">ASC<span>O</span>T <small style="font-size:12px;letter-spacing:.15em">FORMATIONS</small></div><div class="source">Style guide de travail · septembre 2026</div></div><div class="source">Structure inspirée de <a href="https://tutomile.webflow.io/" target="_blank" rel="noopener" style="text-decoration:underline">TutoMile</a> · Univers visuel fondé sur les images Ascot fournies.</div></div></footer><script>
+(function(){
+  var MODE = "edit";
+  function getSelector(el){
+    var t = el.tagName.toLowerCase();
+    if (el.id) return '#'+el.id;
+    var c = Array.from(el.classList).filter(Boolean).join('.');
+    if (c) return t+'.'+c;
+    var n = el.getAttribute('name');
+    if (n) return t+'[name="'+n+'"]';
+    return t;
+  }
+  function applyMode(){
+    var editable = MODE === 'edit';
+    if (document.body) {
+      document.body.setAttribute('contenteditable', editable ? 'true' : 'false');
+      document.body.style.cursor = editable ? 'text' : (MODE === 'image' ? 'crosshair' : 'default');
+      document.body.style.outline = 'none';
+    }
+  }
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || d.type !== 'html-preview-set-mode') return;
+    MODE = d.mode;
+    applyMode();
+  });
+  document.addEventListener('keydown', function(e){
+    if (MODE !== 'edit') return;
+    if (e.key !== ' ') return;
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    e.preventDefault();
+    var range = sel.getRangeAt(0);
+    var spaceNode = document.createTextNode(' ');
+    range.deleteContents();
+    range.insertNode(spaceNode);
+    range.setStartAfter(spaceNode);
+    range.setEndAfter(spaceNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+  document.addEventListener('click', function(e){
+    // Navigation mode: let the page behave like a real browser.
+    if (MODE === 'navigation') return;
+    var img = e.target && e.target.closest ? e.target.closest('img') : null;
+    // Image Studio mode: report the clicked image, keep the page inert.
+    if (MODE === 'image') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (img) {
+        var all = Array.prototype.slice.call(document.images);
+        window.parent.postMessage({
+          type: 'html-preview-img-click',
+          src: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+          selector: getSelector(img),
+          index: all.indexOf(img)
+        }, '*');
+      }
+      return;
+    }
+    var comp = e.target.closest('[id],[class],div,section,article,nav,aside,header,footer,main,form,a,button,input,select,textarea,label,ul,ol,li');
+    if (!comp) comp = e.target;
+    e.preventDefault();
+    e.stopPropagation();
+    if (MODE === 'spec') {
+      window.parent.postMessage({ type: 'html-preview-btn-click', selector: getSelector(comp) }, '*');
+    }
+  }, true);
+  applyMode();
+})();
+</script><script>
+(function(){
+  var MODE = "edit";
+  function getSelector(el){
+    var t = el.tagName.toLowerCase();
+    if (el.id) return '#'+el.id;
+    var c = Array.from(el.classList).filter(Boolean).join('.');
+    if (c) return t+'.'+c;
+    var n = el.getAttribute('name');
+    if (n) return t+'[name="'+n+'"]';
+    return t;
+  }
+  function applyMode(){
+    var editable = MODE === 'edit';
+    if (document.body) {
+      document.body.setAttribute('contenteditable', editable ? 'true' : 'false');
+      document.body.style.cursor = editable ? 'text' : (MODE === 'image' ? 'crosshair' : 'default');
+      document.body.style.outline = 'none';
+    }
+  }
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || d.type !== 'html-preview-set-mode') return;
+    MODE = d.mode;
+    applyMode();
+  });
+  document.addEventListener('keydown', function(e){
+    if (MODE !== 'edit') return;
+    if (e.key !== ' ') return;
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    e.preventDefault();
+    var range = sel.getRangeAt(0);
+    var spaceNode = document.createTextNode(' ');
+    range.deleteContents();
+    range.insertNode(spaceNode);
+    range.setStartAfter(spaceNode);
+    range.setEndAfter(spaceNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+  document.addEventListener('click', function(e){
+    // Navigation mode: let the page behave like a real browser.
+    if (MODE === 'navigation') return;
+    var img = e.target && e.target.closest ? e.target.closest('img') : null;
+    // Image Studio mode: report the clicked image, keep the page inert.
+    if (MODE === 'image') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (img) {
+        var all = Array.prototype.slice.call(document.images);
+        window.parent.postMessage({
+          type: 'html-preview-img-click',
+          src: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+          selector: getSelector(img),
+          index: all.indexOf(img)
+        }, '*');
+      }
+      return;
+    }
+    var comp = e.target.closest('[id],[class],div,section,article,nav,aside,header,footer,main,form,a,button,input,select,textarea,label,ul,ol,li');
+    if (!comp) comp = e.target;
+    e.preventDefault();
+    e.stopPropagation();
+    if (MODE === 'spec') {
+      window.parent.postMessage({ type: 'html-preview-btn-click', selector: getSelector(comp) }, '*');
+    }
+  }, true);
+  applyMode();
+})();
+</script><script>
+(function(){
+  var MODE = "navigation";
+  function getSelector(el){
+    var t = el.tagName.toLowerCase();
+    if (el.id) return '#'+el.id;
+    var c = Array.from(el.classList).filter(Boolean).join('.');
+    if (c) return t+'.'+c;
+    var n = el.getAttribute('name');
+    if (n) return t+'[name="'+n+'"]';
+    return t;
+  }
+  function applyMode(){
+    var editable = MODE === 'edit';
+    if (document.body) {
+      document.body.setAttribute('contenteditable', editable ? 'true' : 'false');
+      document.body.style.cursor = editable ? 'text' : (MODE === 'image' ? 'crosshair' : 'default');
+      document.body.style.outline = 'none';
+    }
+  }
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || d.type !== 'html-preview-set-mode') return;
+    MODE = d.mode;
+    applyMode();
+  });
+  document.addEventListener('keydown', function(e){
+    if (MODE !== 'edit') return;
+    if (e.key !== ' ') return;
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    e.preventDefault();
+    var range = sel.getRangeAt(0);
+    var spaceNode = document.createTextNode(' ');
+    range.deleteContents();
+    range.insertNode(spaceNode);
+    range.setStartAfter(spaceNode);
+    range.setEndAfter(spaceNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+  document.addEventListener('click', function(e){
+    // Navigation mode: let the page behave like a real browser.
+    if (MODE === 'navigation') return;
+    var img = e.target && e.target.closest ? e.target.closest('img') : null;
+    // Image Studio mode: report the clicked image, keep the page inert.
+    if (MODE === 'image') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (img) {
+        var all = Array.prototype.slice.call(document.images);
+        window.parent.postMessage({
+          type: 'html-preview-img-click',
+          src: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+          selector: getSelector(img),
+          index: all.indexOf(img)
+        }, '*');
+      }
+      return;
+    }
+    var comp = e.target.closest('[id],[class],div,section,article,nav,aside,header,footer,main,form,a,button,input,select,textarea,label,ul,ol,li');
+    if (!comp) comp = e.target;
+    e.preventDefault();
+    e.stopPropagation();
+    if (MODE === 'spec') {
+      window.parent.postMessage({ type: 'html-preview-btn-click', selector: getSelector(comp) }, '*');
+    }
+  }, true);
+  applyMode();
+})();
+</script><script>
+(function(){
+  var MODE = "edit";
+  function getSelector(el){
+    var t = el.tagName.toLowerCase();
+    if (el.id) return '#'+el.id;
+    var c = Array.from(el.classList).filter(Boolean).join('.');
+    if (c) return t+'.'+c;
+    var n = el.getAttribute('name');
+    if (n) return t+'[name="'+n+'"]';
+    return t;
+  }
+  function applyMode(){
+    var editable = MODE === 'edit';
+    if (document.body) {
+      document.body.setAttribute('contenteditable', editable ? 'true' : 'false');
+      document.body.style.cursor = editable ? 'text' : (MODE === 'image' ? 'crosshair' : 'default');
+      document.body.style.outline = 'none';
+    }
+  }
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if (!d || d.type !== 'html-preview-set-mode') return;
+    MODE = d.mode;
+    applyMode();
+  });
+  document.addEventListener('keydown', function(e){
+    if (MODE !== 'edit') return;
+    if (e.key !== ' ') return;
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    e.preventDefault();
+    var range = sel.getRangeAt(0);
+    var spaceNode = document.createTextNode(' ');
+    range.deleteContents();
+    range.insertNode(spaceNode);
+    range.setStartAfter(spaceNode);
+    range.setEndAfter(spaceNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+  document.addEventListener('click', function(e){
+    // Navigation mode: let the page behave like a real browser.
+    if (MODE === 'navigation') return;
+    var img = e.target && e.target.closest ? e.target.closest('img') : null;
+    // Image Studio mode: report the clicked image, keep the page inert.
+    if (MODE === 'image') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (img) {
+        var all = Array.prototype.slice.call(document.images);
+        window.parent.postMessage({
+          type: 'html-preview-img-click',
+          src: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+          selector: getSelector(img),
+          index: all.indexOf(img)
+        }, '*');
+      }
+      return;
+    }
+    var comp = e.target.closest('[id],[class],div,section,article,nav,aside,header,footer,main,form,a,button,input,select,textarea,label,ul,ol,li');
+    if (!comp) comp = e.target;
+    e.preventDefault();
+    e.stopPropagation();
+    if (MODE === 'spec') {
+      window.parent.postMessage({ type: 'html-preview-btn-click', selector: getSelector(comp) }, '*');
+    }
+  }, true);
+  applyMode();
+})();
+</script></body></html>

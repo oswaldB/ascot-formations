@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations IA — Ascot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --beige: #EDE8E0;
+            --beige-light: #F5F1EB;
+            --beige-dark: #E0DAD1;
+            --green: #6B9E2A;
+            --green-soft: #8AB84A;
+            --green-light: #E8F0D8;
+            --black: #2A2724;
+            --gray: #7A756E;
+            --gray-light: #F0EDE8;
+            --white: #FFFFFF;
+            --shadow-clay: 0 12px 0 rgba(42,39,36,0.08), 0 24px 48px rgba(42,39,36,0.12);
+            --shadow-clay-hover: 0 16px 0 rgba(42,39,36,0.06), 0 32px 64px rgba(42,39,36,0.16);
+            --shadow-inner: inset 0 2px 4px rgba(255,255,255,0.6);
+            --radius: 28px;
+            --radius-small: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--beige);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Texture de fond subtile */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4cec6' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            background: rgba(237, 232, 224, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--beige-dark);
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            text-decoration: none;
+        }
+
+        .logo-ascot {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: var(--black);
+            text-shadow: 2px 2px 0 rgba(42,39,36,0.06);
+        }
+
+        .logo-o {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--green-soft), var(--green));
+            border-radius: 50%;
+            position: relative;
+            top: 2px;
+            margin: 0 1px;
+            box-shadow: 0 3px 0 rgba(107,158,42,0.3), inset 0 -2px 4px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .logo-formations {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-left: 10px;
+        }
+
+        .nav-links a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-left: 32px;
+            transition: all 0.2s;
+            padding: 8px 16px;
+            border-radius: 100px;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+            background: var(--green-light);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Formes décoratives en arrière-plan style argile */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--green-light), var(--green-soft));
+            border-radius: 50%;
+            opacity: 0.25;
+            box-shadow: 0 8px 0 rgba(107,158,42,0.15);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            right: 8%;
+            width: 60px;
+            height: 60px;
+            background: var(--beige-dark);
+            border-radius: 50%;
+            opacity: 0.5;
+            box-shadow: 0 6px 0 rgba(42,39,36,0.08);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--white);
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 100px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 0 rgba(107,158,42,0.15), var(--shadow-inner);
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 68px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2.5px;
+            margin-bottom: 24px;
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 3px 3px 0 rgba(42,39,36,0.05);
+        }
+
+        .hero h1 span {
+            color: var(--green);
+            position: relative;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--gray);
+            max-width: 640px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--black), #3D3A37);
+            color: var(--white);
+            box-shadow: 0 6px 0 rgba(42,39,36,0.2), 0 12px 24px rgba(42,39,36,0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(42,39,36,0.15), 0 20px 40px rgba(42,39,36,0.2);
+        }
+
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(42,39,36,0.2);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+            box-shadow: 0 4px 0 rgba(42,39,36,0.06), 0 8px 16px rgba(42,39,36,0.06);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 0 rgba(42,39,36,0.04), 0 12px 24px rgba(42,39,36,0.1);
+            color: var(--green);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(28px, 3.5vw, 42px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 0 rgba(42,39,36,0.04);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 17px;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Usages IA */
+        .usages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow-clay);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            border-radius: var(--radius);
+            box-shadow: inset 0 2px 8px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.03);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-clay-hover);
+        }
+
+        .card-icon {
+            width: 68px;
+            height: 68px;
+            background: linear-gradient(135deg, var(--green-light), #dcebc4);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 0 rgba(107,158,42,0.15), inset 0 2px 4px rgba(255,255,255,0.5);
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.08) rotate(-3deg);
+        }
+
+        .card h3 {
+            font-size: 21px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+        }
+
+        .card p {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        /* Formats */
+        .formats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .format-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-clay);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .format-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            border-radius: var(--radius);
+            box-shadow: inset 0 2px 8px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.03);
+            pointer-events: none;
+        }
+
+        .format-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-clay-hover);
+        }
+
+        .format-header {
+            padding: 36px 36px 0;
+        }
+
+        .format-tag {
+            display: inline-block;
+            background: var(--green-light);
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 0 rgba(107,158,42,0.12);
+        }
+
+        .format-card h3 {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+
+        .format-card .desc {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.75;
+            padding: 0 36px;
+            flex: 1;
+        }
+
+        .format-meta {
+            padding: 28px 36px 36px;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--black);
+        }
+
+        .price-detail {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 6px;
+        }
+
+        .format-footer {
+            background: var(--beige-light);
+            padding: 18px 36px;
+            font-size: 13px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 2px solid var(--beige-dark);
+        }
+
+        .format-footer strong {
+            color: var(--black);
+        }
+
+        /* Urgence banner */
+        .urgence {
+            background: linear-gradient(135deg, var(--black), #3D3A37);
+            color: var(--white);
+            border-radius: var(--radius);
+            padding: 56px 48px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-clay);
+        }
+
+        .urgence::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            border-radius: 50%;
+            opacity: 0.12;
+            box-shadow: 0 20px 0 rgba(107,158,42,0.05);
+        }
+
+        .urgence::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--green-soft);
+            border-radius: 50%;
+            opacity: 0.08;
+        }
+
+        .urgence h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            font-weight: 900;
+            margin-bottom: 18px;
+            position: relative;
+            letter-spacing: -1px;
+        }
+
+        .urgence p {
+            color: rgba(255,255,255,0.7);
+            font-size: 17px;
+            max-width: 560px;
+            margin: 0 auto 28px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .urgence .btn-primary {
+            background: linear-gradient(135deg, var(--green), var(--green-soft));
+            color: var(--white);
+            position: relative;
+            box-shadow: 0 6px 0 rgba(107,158,42,0.3), 0 12px 24px rgba(107,158,42,0.15);
+        }
+
+        .urgence .btn-primary:hover {
+            box-shadow: 0 8px 0 rgba(107,158,42,0.25), 0 20px 40px rgba(107,158,42,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 52px 0 36px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            background: var(--beige);
+            border-radius: 40px 40px 0 0;
+            opacity: 0.9;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-logo span {
+            color: var(--green-soft);
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* Petits éléments d'argile décoratifs */
+        .clay-blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .clay-blob-1 {
+            width: 120px; height: 120px;
+            background: var(--green);
+            top: 200px; left: -40px;
+            box-shadow: 0 8px 0 rgba(107,158,42,0.1);
+        }
+
+        .clay-blob-2 {
+            width: 80px; height: 80px;
+            background: var(--beige-dark);
+            top: 600px; right: -20px;
+            box-shadow: 0 6px 0 rgba(42,39,36,0.05);
+        }
+
+        /* Bloc image */
+        .image-bloc {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 12px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-clay);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .image-bloc::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: var(--radius);
+            box-shadow: inset 0 2px 8px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.03);
+            pointer-events: none;
+        }
+
+        .image-bloc:hover {
+            transform: translateY(-6px) rotate(-0.5deg);
+            box-shadow: var(--shadow-clay-hover);
+        }
+
+        .image-bloc img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-small);
+            object-fit: cover;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0 40px;
+            }
+            section {
+                padding: 40px 0;
+            }
+            .card, .format-card {
+                padding: 28px;
+            }
+            .format-header, .format-card .desc, .format-meta {
+                padding-left: 28px !important;
+                padding-right: 28px !important;
+            }
+            .format-footer {
+                padding: 16px 28px;
+            }
+            .urgence {
+                padding: 40px 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero::before, .hero::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="clay-blob clay-blob-1"></div>
+<div class="clay-blob clay-blob-2"></div>
+
+<header>
+    <div class="container">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <span class="logo-ascot">ASC<span class="logo-o"></span>T</span>
+                <span class="logo-formations">Formations</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#usages">Les 3 usages IA</a>
+                <a href="#formats">Nos formats</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-badge">Nouveau — Formations IA 2025</div>
+        <h1>Maîtrisez l'IA avant que vos concurrents ne vous <span>dépassent</span>.</h1>
+        <p>L'intelligence artificielle est partout. La demande explose et les entreprises qui agissent maintenant créeront l'écart. On vous donne les 3 usages clés et les formats adaptés à votre équipe.</p>
+        <div class="hero-cta">
+            <a href="#formats" class="btn btn-primary">Voir les formations →</a>
+            <a href="#usages" class="btn btn-secondary">Découvrir les usages</a>
+        </div>
+    </div>
+</section>
+
+<section id="visuel">
+    <div class="container">
+        <div class="image-bloc">
+            <img src="ascot-equipe.jpg" alt="Ascot Formations - Nous formons les employés qui sont derrière votre performance">
+        </div>
+    </div>
+</section>
+
+<section id="usages">
+    <div class="container">
+        <div class="section-header">
+            <h2>Les 3 usages IA à maîtriser</h2>
+            <p>Pas de théorie inutile. Trois compétences concrètes qui transforment votre productivité dès demain.</p>
+        </div>
+        <div class="usages-grid">
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>Vibe Coding</h3>
+                <p>Créez vos propres outils internes avec l'IA. Des logiciels sur mesure, sans développeur, sans budget externe. Vous décrivez, l'IA code. Vous testez, vous déployez.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Automatisations par agents IA</h3>
+                <p>Libérez votre équipe des tâches répétitives. Des agents intelligents qui traitent, trient, répondent et exécutent — 24h/24, sans supervision constante.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">✍️</div>
+                <h3>Contenus autonomes</h3>
+                <p>Générez du contenu à l'échelle. Articles, fiches produit, documentation… Des agents IA produisent, structurent et publient, sans intervention humaine à chaque étape.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="formats">
+    <div class="container">
+        <div class="section-header">
+            <h2>3 formats, 3 rythmes</h2>
+            <p>De la prise de conscience à la mise en production, choisissez le format qui correspond à votre ambition.</p>
+        </div>
+        <div class="formats-grid">
+            <div class="format-card">
+                <div class="format-header">
+                    <span class="format-tag">Découverte</span>
+                    <h3>Cours Découverte IA</h3>
+                </div>
+                <p class="desc">2 heures pour ouvrir les yeux sur ce que l'IA peut faire pour vous. Idéal pour les décideurs et les équipes qui débutent. Possibilité d'ajouter une heure supplémentaire en face à face pour aller plus loin sur votre cas concret.</p>
+                <div class="format-meta">
+                    <div class="price">850 €</div>
+                    <div class="price-detail">+ 350 € / heure supplémentaire en face à face</div>
+                </div>
+                <div class="format-footer">
+                    <span>⏱️ <strong>2h</strong> + option 1h</span>
+                </div>
+            </div>
+
+            <div class="format-card">
+                <div class="format-header">
+                    <span class="format-tag">Hackathon</span>
+                    <h3>Cours Hackathon IA</h3>
+                </div>
+                <p class="desc">Deux jours immersifs avec votre équipe pour transformer concrètement votre entreprise. Vous repartez avec des prototypes fonctionnels, pas des slides. Un accompagnement serré, main dans la main.</p>
+                <div class="format-meta">
+                    <div class="price">4 000 €</div>
+                    <div class="price-detail">Prix minimum — sur devis selon vos besoins</div>
+                </div>
+                <div class="format-footer">
+                    <span>👥 <strong>Max 18 personnes</strong> · 2 jours</span>
+                </div>
+            </div>
+
+            <div class="format-card">
+                <div class="format-header">
+                    <span class="format-tag">Atelier Focus</span>
+                    <h3>Ateliers Focus IA</h3>
+                </div>
+                <p class="desc">Petit groupe, objectif précis. Exemple : créer un site internet avec l'IA, automatiser votre CRM, ou générer votre première campagne de contenus. On fait une chose, et on la fait bien.</p>
+                <div class="format-meta">
+                    <div class="price">1 200 €</div>
+                    <div class="price-detail">par module</div>
+                </div>
+                <div class="format-footer">
+                    <span>👥 <strong>Max 6 personnes</strong> · 2 séances de 2h</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="urgence">
+            <h2>L'offre est là. La demande suit. Avançons vite.</h2>
+            <p>Plus vous attendez, plus l'écart se creuse avec ceux qui ont déjà commencé. On construit votre formation sur mesure dès maintenant.</p>
+            <a href="mailto:contact@ascot-formations.fr" class="btn btn-primary">Nous contacter →</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">ASC<span>O</span>T Formations</div>
+            <div class="footer-copy">© 2025 Ascot Formations — Nous formons les employés qui sont derrière votre performance.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
