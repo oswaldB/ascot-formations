@@ -4,408 +4,541 @@
    Source unique du système visuel, référencée par toutes les pages :
      <link rel="stylesheet" href="/assets/ascot.css">
 
+   Direction artistique : la maquette de la page d'accueil fait référence.
+   Elle repose sur quatre partis pris tenus partout :
+     · des aplats francs (papier, sombre, argile) et aucun dégradé ;
+     · des angles droits et des filets d'un pixel, aucune ombre portée ;
+     · des titres serrés en graisse 750, des libellés capitales espacées ;
+     · la typographie du système (DejaVu Sans puis Arial) : aucune police web.
+
    Démonstration et documentation vivante : specs/Styleguide_Ascot_Formations.html
    Règle : toute évolution de jeton ou de composant se décide dans le styleguide,
-   puis se reporte ici. Les pages ne contiennent plus aucun CSS de composant.
+   puis se reporte ici. Les pages ne contiennent aucun CSS de composant.
 
    Sommaire
-     1. Jetons            2. Base              3. Navigation capsule
-     4. Boutons           5. Typographie       6. Sections, grilles, fonds
-     7. Héros             8. Cartes            9. Étiquettes et filtres
-    10. Composants de contenu (fiches, formulaires, étapes, citation, listes)
-    11. Preuve chiffrée  12. Bandeau d'appel  13. Pied de page  14. Icônes
-    15. Utilitaires      16. Blocs de page (routeur, avatars, couvertures,
-       newsletter)       17. Responsive
+     1. Jetons              2. Base                 3. Barre de navigation
+     4. Boutons             5. Titres               6. Héros
+     7. Frise et chapitres  8. Formations en lignes  9. Étapes de l'approche
+    10. Bloc média + texte 11. Appels à l'action    12. Cartes et contenus
+    13. Preuve chiffrée    14. Formulaires et alertes  15. Pied de page
+    16. Fenêtre modale     17. Placeholders         18. Utilitaires
+    19. Responsive
    ============================================================================ */
 
 /* ============================================================
-   ASCOT FORMATIONS — SYSTÈME VISUEL ALIGNÉ SUR TUTOMILE
-   Structure, échelle typo, composants et palette repris du
-   template TutoMile (Webflow) · matière en pâte modelée Ascot
+   1. JETONS
    ============================================================ */
 :root{
-  /* Couleurs — jetons TutoMile */
-  --lime:#bce955;        /* action primaire */
-  --forest:#0e3128;      /* fond sombre, secondaire */
-  --ink:#001a10;         /* texte */
-  --moss:#334840;        /* texte secondaire */
-  --deep:#15372e;        /* hover / appui */
-  --mist:#f3f5f4;        /* fond clair */
-  --line:#e7eae9;        /* bordures cartes */
-  --line-2:#cfd6d4;      /* bordures boutons */
+  /* Couleurs */
+  --paper:#F6F3EB;       /* fond de page */
+  --paper-2:#EFEAE0;     /* variation de --paper, pour alterner deux sections claires */
+  --ink:#162721;         /* texte */
+  --green:#5AAE17;       /* accent : numéros, filets actifs, liens de carte */
+  --line:#CAD1C6;        /* filets et bordures sur fond clair */
+  --muted:#52635B;       /* texte secondaire */
+  --dark:#102D26;        /* fonds sombres */
+  --leaf:#A4DC72;        /* accent clair, sur fond sombre */
+  --pale:#D4E6D8;        /* texte secondaire sur fond sombre */
+  --rule:#426055;        /* filets et bordures sur fond sombre */
+  --clay:#E5D1B8;        /* fond des visuels */
+  --field:#B8B9A9;       /* bordure des champs de formulaire */
+  --focus:#719322;      /* anneau de focus */
   --white:#fff;
-  /* Matière Ascot */
-  --clay:#f4e9df;
-  --clay-deep:#e3d3c2;
   /* Géométrie */
-  --radius:20px;
-  --pill:500px;
-  --section:120px;
-  --shadow-card:6px 8px 32px rgba(14,49,40,.07);
-  --shadow-nav:0 4px 32px rgba(0,0,0,.12);
+  --shell:1440px;        /* largeur maximale de la colonne de contenu */
+  --pad:56px;            /* marge latérale de la colonne */
+  --pill:500px;          /* rayon complet, réservé aux pastilles rondes (points) */
 }
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--white);color:var(--ink);font-family:Manrope,Arial,sans-serif;font-weight:500}
+html{scroll-behavior:smooth;scroll-padding-top:26px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"DejaVu Sans",Arial,sans-serif;font-size:16px;font-weight:400}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
 img{display:block;max-width:100%}
 /* Un élément retiré par [hidden] doit le rester même quand son composant porte un
-   `display` explicite (.card, .grid…). Sans cette règle, un filtre qui masque une
+   `display` explicite (.card, .course…). Sans cette règle, un filtre qui masque une
    carte par script reste sans effet visible. */
 [hidden]{display:none!important}
-.shell{max-width:1360px;margin:auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:5px}
+.shell{max-width:var(--shell);margin:auto;padding:0 var(--pad)}
 
-/* ---------- Navigation : barre capsule blanche flottante ---------- */
-.top{position:fixed;inset:0 0 auto;z-index:100;width:100%;padding:16px 0 12px;pointer-events:none}
-/* Règle scopée à la capsule : un <nav> nu (fil d'Ariane, etc.) reste neutre.
-   Pas de padding horizontal ici : il est porté par .shell (0 20px), comme avant le scoping,
-   sinon .top nav (0,1,1) battrait .shell (0,1,0) et décalerait la capsule de 8 px. */
-.top nav{pointer-events:auto;height:78px;display:flex;align-items:center;gap:32px;background:var(--white);border-radius:55px;box-shadow:var(--shadow-nav)}
+/* ============================================================
+   3. BARRE DE NAVIGATION
+   Barre pleine largeur séparée par un filet, logo à gauche, rubriques au centre
+   droit, action à droite. Elle défile avec la page : rien n'est fixé à l'écran.
+   ============================================================ */
+.top{background:var(--paper);border-bottom:1px solid var(--line)}
+.top nav{height:118px;display:flex;align-items:center;gap:27px}
 .brand{display:flex;align-items:center;flex:0 0 auto}
-.brand img{height:44px;width:auto}
-.links{display:flex;gap:28px;margin-left:auto;font-family:Figtree,sans-serif;font-size:16px;font-weight:500}
-.links a{color:var(--moss);transition:color .3s}
-.links a:hover,.links a:first-child{color:var(--ink);font-weight:600}
-.nav-cta{margin-left:12px}
+.brand img{height:83px;width:auto}
+.links{display:flex;gap:27px;margin-left:auto;font-size:12px;font-weight:600}
+.links a{color:var(--ink);transition:color .2s}
+.links a:hover,.links a:focus-visible,.links a[aria-current="page"]{color:var(--green)}
+.nav-cta{margin-left:0}
 
-/* ---------- Boutons : capsules, libellé qui glisse au survol ---------- */
-.btn{position:relative;display:inline-flex;align-items:center;gap:12px;background:var(--lime);border:1px solid var(--lime);color:var(--ink);font-family:Figtree,sans-serif;font-size:18px;font-weight:700;letter-spacing:-.5px;line-height:1.1em;padding:14px 32px;border-radius:var(--pill);transition:background-color .3s,border-color .3s,color .3s;white-space:nowrap}
-.nav-cta{padding:13px 26px;font-size:16px}
-.btn:hover,.btn:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
-.btn.secondary{background:transparent;border:1px solid var(--line-2);color:var(--ink)}
-.btn.secondary:hover,.btn.secondary:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
+/* ============================================================
+   4. BOUTONS
+   Primitive carrée : 1 px de contour, 17 px de marge interne, libellé en 12 px.
+   Le primaire est un aplat vert clair, le secondaire un contour.
+   Le libellé glisse au survol (.swap) : mécanique conservée, la feuille ne fait
+   que le rendu.
+   ============================================================ */
+.btn{position:relative;display:inline-flex;align-items:center;gap:25px;background:var(--leaf);border:1px solid var(--leaf);color:var(--dark);font-size:12px;font-weight:600;padding:17px 22px;border-radius:0;white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s}
+.btn:hover,.btn:focus-visible{background:#8FC94D;border-color:#8FC94D;color:var(--dark)}
+.btn.secondary{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+.btn.secondary:hover,.btn.secondary:focus-visible{background:var(--dark);border-color:var(--dark);color:var(--paper)}
+.btn.dark{background:var(--dark);border-color:var(--dark);color:var(--paper)}
+.btn.dark:hover,.btn.dark:focus-visible{background:#454B2C;border-color:#454B2C;color:var(--paper)}
+.nav-cta{padding:17px 22px;font-size:12px;background:transparent;border-color:var(--ink);color:var(--ink)}
+.nav-cta:hover,.nav-cta:focus-visible{background:var(--dark);border-color:var(--dark);color:var(--paper)}
 .swap{position:relative;display:inline-block;height:1.1em;line-height:1.1em;overflow:hidden;vertical-align:bottom}
 .swap b{display:block;font-weight:inherit;transition:transform .35s cubic-bezier(.65,0,.35,1)}
 .swap b:nth-child(2){position:absolute;left:0;top:100%}
 .btn:hover .swap b,.btn:focus-visible .swap b{transform:translateY(-100%)}
+/* Boutons posés sur un fond sombre : le primaire reste vert clair, le secondaire
+   passe en contour clair. */
+.band .btn.secondary,.cta .btn.secondary,.contact .btn.secondary,.hero .btn.secondary,.approach .btn.secondary,.footer .btn.secondary{border-color:var(--rule);color:var(--white)}
+.band .btn.secondary:hover,.cta .btn.secondary:hover,.contact .btn.secondary:hover,.hero .btn.secondary:hover,.approach .btn.secondary:hover,.band .btn.secondary:focus-visible,.cta .btn.secondary:focus-visible{background:var(--leaf);border-color:var(--leaf);color:var(--dark)}
 
-/* ---------- Typographie ---------- */
-h1,h2,h3,h4,p{margin-top:0}
-h1,h2,h3,h4{font-family:Figtree,sans-serif;font-weight:800;letter-spacing:-.03em;margin-bottom:0}
-h1{font-size:clamp(42px,6.2vw,72px);line-height:1.11em;margin-bottom:24px}
-h2{font-size:clamp(32px,4.6vw,52px);line-height:1.15em;margin-bottom:16px}
-h3{font-size:clamp(24px,3vw,40px);line-height:1.2em}
-h4{font-size:24px;line-height:1.32em;font-weight:700}
-p{line-height:1.8em;color:var(--moss);font-size:17px}
-.eyebrow{display:inline-block;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--moss);background:var(--mist);border-radius:var(--pill);padding:8px 16px;margin-bottom:22px}
-.band .eyebrow{background:rgba(188,233,85,.14);color:var(--lime)}
+/* ============================================================
+   5. TITRES
+   Graisse 750 et interlettrage négatif : les titres se serrent quand ils grandissent.
+   ============================================================ */
+h1,h2,h3,h4{margin:0;font-weight:750;color:inherit;overflow-wrap:break-word}
+h1{font-size:clamp(38px,4.1vw,60px);line-height:1.09;letter-spacing:-1.5px;max-width:1050px}
+h2{font-size:clamp(32px,3.3vw,46px);line-height:1.15;letter-spacing:-1px;max-width:700px}
+h3{font-size:27px;line-height:1.15;letter-spacing:-.5px}
+h4{font-size:20px;line-height:1.25;letter-spacing:-.3px}
+p{line-height:1.6;color:var(--muted);font-size:16px}
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.dot{width:7px;height:7px;border-radius:var(--pill);background:var(--green);display:inline-block;flex:0 0 auto}
+.text-link{font-size:13px;border-bottom:1px solid;padding-bottom:5px}
+.small{font-size:13px;line-height:1.6}
+.spec{font-size:11px;font-weight:750;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.source{font-size:12px;color:var(--muted)}
 
-/* ---------- Sections & grilles ---------- */
-section{padding:var(--section) 0;scroll-margin-top:110px}
-/* Garde : `section` est un sélecteur d'élément. Toute <section> imbriquée (espace membre,
-   formulaires, panneaux) hériterait sinon de 120 px de padding et d'un scroll-margin inutile.
-   Cette règle neutralise la fuite pour les sections internes au contenu. */
-section section{padding:0;scroll-margin-top:0}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:48px}
-.section-head p{max-width:520px;margin-bottom:0}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.band{background:var(--forest);color:var(--white)}
-.band h2,.band h3,.band h4{color:var(--white)}
-.band p{color:#c9d5cf}
-.mist{background:var(--mist)}
+/* ============================================================
+   6. HÉROS
+   Deux colonnes : le discours sur l'aplat sombre, le visuel en argile.
+   La hauteur minimale tient la composition même quand le texte est court.
+   ============================================================ */
+.hero{background:var(--dark);color:var(--white);margin-top:26px;min-height:570px;text-align:left}
+.hero-grid{display:grid;grid-template-columns:46% 54%;min-height:570px}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start;padding:42px 34px 34px 42px;min-width:0}
+.hero-copy h1{color:var(--white);margin:30px 0 24px}
+.hero h1 em,.hero h1 span{font-style:normal;color:var(--leaf)}
+.hero p{font-size:16px;color:var(--pale);max-width:380px;margin:0}
+.hero-actions{display:flex;flex-direction:column;align-items:flex-start;gap:19px;margin:28px 0 32px}
+.hero .text-link{color:var(--pale);font-size:11px;border:0}
+.hero .eyebrow{color:var(--leaf);justify-content:flex-start;letter-spacing:1px;line-height:1.6}
+.hero-foot{color:var(--leaf);font-size:12px;font-weight:700;margin-top:auto}
+.hero-art{background:var(--clay);min-height:100%;display:flex;align-items:center;overflow:hidden}
+.hero-art img{width:100%;height:auto;object-fit:contain}
+/* Héros de page intérieure : le discours occupe toute la colonne. */
+.hero.compact .hero-copy{max-width:820px}
+/* Les enfants du héros sont des éléments flex : sans `min-width:0`, la largeur
+   minimale d'un mot long (min-content) l'emporte sur la colonne et déborde. */
+.hero-copy > *{min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;font-weight:600;color:var(--pale)}
+.meta span{border:1px solid var(--rule);padding:8px 14px}
+.crumbs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-size:12px;color:var(--pale)}
+.crumbs a{color:var(--pale);transition:color .2s}
+.crumbs a:hover{color:var(--leaf)}
+.crumbs span[aria-hidden]{opacity:.5}
 
-/* ---------- Héros : fond vert forêt, insert argile ---------- */
-.hero{background:var(--forest);color:var(--white);padding:120px 0 110px;overflow:hidden}
-.hero h1{color:var(--white)}
-.hero h1 span{color:var(--lime)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.hero-copy p{font-size:19px;max-width:560px;color:#c9d5cf;margin-bottom:0}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0}
-.hero .btn.secondary{border-color:rgba(255,255,255,.4);color:var(--white)}
-.hero .btn.secondary:hover,.hero .btn.secondary:focus-visible{background:var(--lime);border-color:var(--lime);color:var(--forest)}
-.meta{display:flex;flex-wrap:wrap;gap:10px;font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:#c9d5cf}
-.meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--pill);padding:8px 15px}
-.hero-art{background:var(--clay);border-radius:28px;padding:26px 26px 0;box-shadow:0 24px 60px rgba(0,0,0,.28)}
-.hero-art img{width:100%;min-height:380px;object-fit:cover;border-radius:20px 20px 0 0;mix-blend-mode:multiply}
+/* ============================================================
+   7. FRISE ET CHAPITRES
+   La frise annonce les univers sur un filet ; le numéro de chapitre ouvre
+   chaque section. Ni l'une ni l'autre n'est un lien : ce sont des repères.
+   ============================================================ */
+.ribbon{display:flex;justify-content:space-between;align-items:center;gap:25px;border-bottom:1px solid var(--line);padding:24px 0;font-size:11px}
+.ribbon b{font-weight:700}
+.ribbon span{color:var(--muted)}
+.ribbon .asterisk{font-size:28px;color:var(--green)}
+.chapter-number{color:var(--green);font-size:12px;font-weight:750;letter-spacing:.7px;margin-bottom:38px}
 
-/* ---------- Frise d'univers (bandeau sous le héros) ----------
-   Repères de thématiques, pas une navigation : les libellés sont des étiquettes
-   non cliquables, séparées du chapeau par un simple trait. */
-.ribbon{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;border-bottom:1px solid var(--line);padding:26px 0;font-size:15px;color:var(--moss)}
+/* ============================================================
+   8. FORMATIONS EN LIGNES
+   Une ligne par formation : vignette 3/2 à gauche, texte à droite, filet de
+   séparation, numéro posé en marge du texte. Les onglets filtrent la liste.
+   ============================================================ */
+.filters,.pills{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--line)}
+.filters{margin:30px 0}
+.filter,.pill{border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:var(--ink);font-size:12px;font-weight:650;padding:15px 20px}
+.filter:hover,.pill:hover{color:var(--green)}
+.filter.active,.pill.active{color:var(--green);border-bottom-color:var(--green)}
+.courses{display:flex;flex-direction:column;counter-reset:course}
+.course{display:grid;grid-template-columns:40% 1fr;gap:35px;align-items:center;border-bottom:1px solid var(--line);padding:30px 0;counter-increment:course}
+.course-art{aspect-ratio:3/2;overflow:hidden;background:transparent}
+.course-art img{width:100%;height:100%;object-fit:cover}
+.course-body{position:relative;padding:10px 0 3px 65px}
+.course-body::before{content:"0" counter(course);position:absolute;left:0;top:10px;font-size:30px;font-weight:750;color:var(--green)}
+.course h3{font-size:27px;margin-bottom:12px}
+.course p{font-size:15px;max-width:650px;margin:0 0 22px}
+.course a{display:inline-flex;gap:35px;font-size:12px;font-weight:750;color:var(--green);padding:0;border:0}
+.course a span{font-size:19px}
 
-/* ---------- Cartes de cours ---------- */
-.card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s}
-.card:hover{transform:translateY(-6px);box-shadow:12px 18px 48px rgba(14,49,40,.14)}
-.card-media{min-height:220px;background:var(--clay);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.card-media img{width:100%;height:100%;object-fit:cover;object-position:bottom}
-.card-media.logo-img img{object-fit:contain;padding:34px;background:var(--white)}
-.card-body{padding:32px 24px;display:flex;flex-direction:column;flex:1}
-.card-body h4{margin:15px 0 10px}
-.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:auto;padding-top:20px;font-family:Figtree,sans-serif;font-size:14px;font-weight:700}
-.card-footer a{color:var(--moss)}
-.card-footer a:hover{color:var(--forest)}
+/* ============================================================
+   9. ÉTAPES DE L'APPROCHE
+   Trois colonnes numérotées sur aplat sombre.
+   ============================================================ */
+.approach{background:var(--dark);color:var(--white)}
+.approach .chapter-number{color:var(--leaf)}
+.approach .section-head{margin-bottom:48px}
+.approach h2{max-width:900px}
+.approach .section-head h2{max-width:900px}
+.approach p{color:var(--pale)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.step{border-top:1px solid var(--rule);padding-top:20px}
+.number{font-size:27px;font-weight:750;color:var(--leaf)}
+.step h3{font-size:24px;margin:24px 0 12px;letter-spacing:-.6px}
+.step p{font-size:14px;line-height:1.7;max-width:310px}
 
-/* ---------- Étiquettes ---------- */
-.tag{display:inline-block;background:#eaf6cf;color:var(--forest);border-radius:var(--pill);padding:7px 14px;font-family:Figtree,sans-serif;font-size:12px;font-weight:700}
-.pill{padding:11px 18px;border:1px solid var(--line-2);border-radius:var(--pill);font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:var(--moss);background:var(--white);transition:all .25s}
-.pill:hover{border-color:var(--forest);color:var(--forest)}
-.pill.active{background:var(--forest);border-color:var(--forest);color:var(--white)}
-.pills{display:flex;gap:10px;flex-wrap:wrap}
+/* ============================================================
+   10. BLOC MÉDIA + TEXTE
+   Deux colonnes : visuel à gauche, discours à droite. Sert la page d'accueil
+   (.tail) et les mises en avant de pages piliers (.split, .newsletter-grid).
+   ============================================================ */
+.tail-grid,.split,.newsletter-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+/* Le chapitre de ce bloc ouvre la section en amont du visuel : 60 px depuis le
+   haut, puis 56 px avant la grille, soit le décalage de la maquette. */
+.tail{padding-top:60px}
+.tail .chapter-number{margin-bottom:56px}
+.visual,.split-art,.newsletter-art{overflow:hidden}
+.visual img,.split-art img,.newsletter-art img{width:100%;height:auto}
+.tail h2,.visual h2{margin:22px 0}
+.tail p,.split p{font-size:15px;line-height:1.7;max-width:390px}
+.split .cta-actions{margin-top:32px}
 
-/* ---------- Cartes de contenu ---------- */
-.component{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:32px 24px;box-shadow:var(--shadow-card)}
-.component h4{font-size:20px;margin-bottom:14px}
-.field{width:100%;border:1px solid var(--line-2);border-radius:12px;padding:16px 18px;font:inherit;font-size:16px;color:var(--ink);background:var(--white)}
-.field::placeholder{color:#5f736b} /* 5,06:1 sur blanc — #7d8f88 ne donnait que 3,41:1 */
-.field:focus{outline:3px solid rgba(188,233,85,.55);border-color:var(--forest)}
-.spec{font-family:Figtree,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin:12px 0 0}
-.small{font-size:14px;line-height:1.6}
-.rule{border-top:1px solid var(--line);padding-top:24px;margin-top:30px}
-
-
-
-/* ---------- Module interactif : saisie → résultat ---------- */
-/* Quiz, test de maturité, calculateur, simulateur, générateur (bloc `module-interactif`).
-   Le résultat est masqué par défaut (`[hidden]`) et révélé par le script de la page :
-   la feuille ne porte que le rendu. Aucune valeur hors jetons. */
-.module{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:36px 32px}
-.module-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
-.module-head h3{margin:0}
-.module-step{font-family:Figtree,sans-serif;font-size:13px;font-weight:700;color:var(--moss)}
-.module-q{font-family:Figtree,sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px}
-.module-q:last-child{margin-bottom:0}
-.module-opts{display:grid;gap:10px;margin-bottom:24px}
-.module-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;font-size:15px;color:var(--moss);cursor:pointer;transition:border-color .25s,background .25s}
-.module-opt:hover{border-color:var(--forest)}
-.module-opt:has(input:checked){border-color:var(--forest);background:var(--mist)}
-.module-opt input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--forest)}
-.module-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
-.module-fields label{display:block;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.module-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.module-result{border-top:1px solid var(--line);margin-top:28px;padding-top:28px}
-.module-result[hidden]{display:none}
-.module-score{font-family:Figtree,sans-serif;font-weight:900;font-size:44px;line-height:1;letter-spacing:-.03em;color:var(--forest)}
-.module-verdict{font-size:16px;color:var(--moss);margin-top:14px}
-.module-note{font-size:14px;color:var(--moss);margin-top:12px}
-
-/* ---------- Agenda d'événements : chronologie datée ---------- */
-/* Bloc `agenda-evenements` de /evenements/ : la date prime sur l'image,
-   séparation « à venir / passés », lien d'inscription. */
-.agenda{display:flex;flex-direction:column;gap:44px}
-.agenda-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-.agenda-head h3{margin:0}
-.agenda-list{display:flex;flex-direction:column;gap:14px}
-.agenda-item{display:flex;align-items:flex-start;gap:24px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:24px}
-.agenda-date{flex:0 0 auto;width:88px;text-align:center;background:var(--clay);border-radius:14px;padding:14px 8px;font-family:Figtree,sans-serif}
-.agenda-date b{display:block;font-size:28px;font-weight:900;line-height:1;color:var(--forest)}
-.agenda-date span{display:block;margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--moss)}
-.agenda-body{flex:1;min-width:0}
-.agenda-body h4{font-size:20px;margin-bottom:8px}
-.agenda-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--moss);margin-bottom:14px}
-.agenda-action{flex:0 0 auto;align-self:center}
-.agenda-item.is-past{background:var(--mist);box-shadow:none}
-.agenda-item.is-past .agenda-date{background:var(--line-2)}
-
-
-/* ---------- Preuve / chiffres ---------- */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.stat{border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:32px 24px;background:rgba(255,255,255,.04)}
-.stat b{display:block;font-family:Figtree,sans-serif;font-weight:900;font-size:52px;line-height:1;letter-spacing:-.04em;color:var(--lime)}
-.stat span{display:block;margin-top:12px;font-size:15px;color:#c9d5cf;line-height:1.6}
-
-
-/* ---------- Bandeau d'appel ---------- */
-.cta{border-radius:28px;background:var(--forest);color:var(--white);padding:56px;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
-.cta h2{max-width:620px;margin-bottom:14px}
-.cta p{color:#c9d5cf;margin-bottom:0;max-width:560px}
-.cta-form{display:flex;gap:12px;flex-wrap:wrap}
-.cta-form .field{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:var(--white);min-width:280px}
-.cta-form .field::placeholder{color:#a9bcb5}
-.cta-form .field:focus{outline:3px solid rgba(188,233,85,.55)}
-
-/* ---------- Pied de page ---------- */
-.footer{background:var(--forest);color:var(--white);padding:80px 0 40px}
-.footer h4{font-size:15px;color:var(--white);margin-bottom:16px;font-family:Figtree,sans-serif;font-weight:700;letter-spacing:.01em}
-.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px}
-.footer-links{display:flex;flex-direction:column;gap:12px;font-size:16px}
-.footer-links a{color:#c9d5cf;transition:color .3s}
-.footer-links a:hover{color:var(--lime)}
-.footer .brand img{height:46px;filter:none}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.14);padding-top:28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-.footer .source{font-size:14px;color:#a9bcb5}
-.footer .source a{color:var(--lime);text-decoration:underline}
-
-/* ---------- Icônes : images avec src ---------- */
-.icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.icon-box{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px 20px;text-align:center;box-shadow:var(--shadow-card)}
-.icon-box img.icon{width:48px;height:48px;object-fit:contain;margin:0 auto 16px}
-.icon-box h4{font-size:17px;margin-bottom:8px}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:var(--mist);border-radius:6px;padding:2px 6px;overflow-wrap:anywhere}
-
-/* ---------- Titres de carte ----------
-   Les pages produites depuis les fiches emploient `h3` : le titre d'une carte est un
-   `###` dans la fiche, et un `h4` sous un `h2` ferait sauter un niveau de titre. Ces
-   règles donnent au `h3` la métrique que le `h4` avait dans le design. */
-.card-body h3{margin:15px 0 10px;font-size:24px;line-height:1.32em;font-weight:700}
-.icon-box h3{font-size:17px;margin-bottom:8px}
-.route-card h3{font-size:19px;margin:0;font-weight:700;line-height:1.3}
-.component h3{font-size:20px;margin-bottom:14px}
-.agenda-body h3{font-size:20px;margin-bottom:8px}
-
-/* ---------- Placeholders / notes ---------- */
-.placeholder{background:linear-gradient(135deg,var(--clay-deep),var(--clay));border:2px dashed var(--clay-deep);border-radius:var(--radius);min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:26px;color:var(--moss)}
-.placeholder strong{font:800 19px Figtree,sans-serif}
-.placeholder small{font-size:13px;line-height:1.5}
-
-/* ---------- Répartition : grilles à 4 colonnes ---------- */
-.grid-4{grid-template-columns:repeat(4,1fr)}
-.stats-4{grid-template-columns:repeat(4,1fr)}
+/* ============================================================
+   11. APPELS À L'ACTION
+   Bloc sombre pleine largeur (.cta) ou bloc sombre encadré (.contact), dans
+   lequel on ne met jamais plus d'une action.
+   ============================================================ */
+.cta,.contact{background:var(--dark);color:var(--white);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:35px;padding:48px}
+.cta h2,.contact h2{max-width:650px;margin-top:0}
+.cta p{color:var(--pale);font-size:14px;margin:14px 0 0}
+/* La maquette laisse ce paragraphe sans interligne ni marge propre : on suit son rendu. */
+.contact p{color:var(--pale);font-size:14px;line-height:normal;margin-bottom:0}
+.cta .eyebrow,.contact .eyebrow{color:var(--leaf)}
+.contact{margin-bottom:55px}
+.contact h2{margin-top:20px}
+.contact p{margin-bottom:0}
+.contact p{line-height:normal}
+.contact .btn,.cta .btn{white-space:nowrap;flex:0 0 auto}
+.cta-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .section-cta{text-align:center;margin-top:48px}
 
-/* ---------- Fils d'Ariane ---------- */
-.crumbs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:#a9bcb5;margin-bottom:22px}
-.crumbs a{color:#c9d5cf;transition:color .3s}
-.crumbs a:hover{color:var(--lime)}
-
-/* ---------- Héros compact (pages intérieures) ---------- */
-.hero.compact{padding:150px 0 90px}
-.hero-copy{max-width:780px}
-
-/* ---------- Routeur par objectif ---------- */
-.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.route-card{display:flex;align-items:center;gap:18px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s,border-color .25s}
-.route-card:hover{transform:translateY(-6px);box-shadow:12px 18px 48px rgba(14,49,40,.14);border-color:var(--lime)}
-.route-icon{width:48px;height:48px;flex:0 0 48px;object-fit:contain;border-radius:12px}
-.route-card h4{font-size:19px;margin:0;font-weight:700;line-height:1.3}
-.route-card .arrow{margin-left:auto;color:var(--forest);font-weight:800;font-size:18px}
-
-/* ---------- Avatars métiers ---------- */
-.avatar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.avatar-grid .card-media{min-height:0}
-.avatar-grid .card-media img{aspect-ratio:4/5;object-fit:cover;object-position:center}
-
-/* ---------- Cartes larges (mise en avant) ---------- */
+/* ============================================================
+   12. CARTES ET CONTENUS
+   Aucune ombre, aucun arrondi : un filet, une vignette, du texte.
+   ============================================================ */
+section{padding:85px 0}
+/* Garde : `section` est un sélecteur d'élément. Toute <section> imbriquée (espace
+   membre, panneaux) hériterait sinon de 85 px de padding. */
+section section{padding:0;scroll-margin-top:0}
+.section-head{display:block;margin-bottom:36px}
+.section-head h2{max-width:950px}
+.section-head p{max-width:690px;font-size:16px;line-height:1.65;margin-top:22px}
+.section-head-center{text-align:center}
+.section-head-center h2,.section-head-center p{margin-left:auto;margin-right:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.band{background:var(--dark);color:var(--white)}
+.band h2,.band h3,.band h4{color:var(--white)}
+.band p{color:var(--pale)}
+.band .eyebrow{color:var(--leaf)}
+.mist{background:var(--paper-2)}
+.card{display:flex;flex-direction:column;background:transparent;border:1px solid var(--line);overflow:hidden}
+.card-media{min-height:220px;background:var(--clay);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-media img{width:100%;height:100%;object-fit:cover;object-position:center}
+.card-media.logo-img img{object-fit:contain;padding:34px}
+.card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:22px;margin-bottom:12px}
+.card-body p{margin-bottom:0}
+.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:auto;padding-top:15px;font-size:12px;font-weight:750}
+.card-footer a{color:var(--green)}
 .card.wide{grid-column:1/-1;flex-direction:row;align-items:stretch}
 .card.wide .card-media{flex:0 0 42%;min-height:300px}
 .card.wide .card-media img{height:100%;object-fit:cover}
 .card.wide .card-body{justify-content:center}
-
-/* ---------- Couvertures de documents ---------- */
-.card-media.cover{min-height:0;aspect-ratio:4/3;background:var(--white);border-bottom:1px solid var(--line)}
+.card-media.cover{min-height:0;aspect-ratio:4/3;background:transparent;border-bottom:1px solid var(--line)}
 .card-media.cover img{object-fit:contain;padding:26px}
-
-/* ---------- Étiquettes secondaires ---------- */
-.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.tags-row .tag{background:var(--mist);color:var(--moss)}
-.pills.filters{margin:0 0 28px}
-
-/* ---------- Numéro d'étape ---------- */
-.step-num{font-family:Figtree,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--forest);background:#eaf6cf;border-radius:var(--pill);padding:7px 14px;display:inline-block;margin-bottom:18px}
-
-/* ---------- Citation / témoignage ---------- */
-.quote{display:flex;gap:32px;align-items:center;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:36px;margin-top:24px}
-.quote img{width:120px;height:120px;border-radius:50%;object-fit:cover;flex:0 0 120px}
-.quote blockquote{margin:0 0 14px;font-family:Figtree,sans-serif;font-weight:700;font-size:clamp(20px,2.2vw,26px);line-height:1.35;letter-spacing:-.02em;color:var(--white)}
-.quote cite{font-style:normal;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;color:var(--lime)}
-.quote cite span{display:block;color:#c9d5cf;font-weight:500;margin-top:4px}
-
-/* ---------- Liste à coches ---------- */
+.avatar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.avatar-grid .card-media{min-height:0}
+.avatar-grid .card-media img{aspect-ratio:4/5;object-fit:cover}
+.component{background:transparent;border:1px solid var(--line);padding:30px 24px}
+.component h3,.component h4{font-size:20px;margin-bottom:14px}
+.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.route-card{display:flex;align-items:center;gap:18px;background:transparent;border:1px solid var(--line);padding:24px}
+.route-card:hover{border-color:var(--green)}
+.route-icon{width:48px;height:48px;flex:0 0 48px;object-fit:contain}
+.route-card h3,.route-card h4{font-size:19px;margin:0}
+.route-card .arrow{margin-left:auto;color:var(--green);font-weight:750;font-size:18px}
+.icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.icon-box{background:transparent;border:1px solid var(--line);padding:26px 20px;text-align:center}
+.icon-box img.icon{width:48px;height:48px;object-fit:contain;margin:0 auto 16px}
+.icon-box h3,.icon-box h4{font-size:17px;margin-bottom:8px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:var(--paper-2);padding:2px 6px;overflow-wrap:break-word}
 ul.check{list-style:none;padding:0;margin:28px 0 0}
-ul.check li{position:relative;padding-left:28px;margin:14px 0;color:var(--moss);font-size:16px;line-height:1.7}
-ul.check li::before{content:"\2713";position:absolute;left:0;color:var(--forest);font-weight:800}
+ul.check li{position:relative;padding-left:28px;margin:14px 0;color:var(--muted);font-size:16px;line-height:1.7}
+ul.check li::before{content:"\2713";position:absolute;left:0;color:var(--green);font-weight:750}
+.notes{font-size:15px}
+.notes li{margin:12px 0;line-height:1.55}
+.rule{border-top:1px solid var(--line);padding-top:22px;margin-top:28px}
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{display:inline-block;background:transparent;border:1px solid var(--line);color:var(--muted);padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.tags-row .tag{background:transparent}
+.step-num{display:inline-block;font-size:12px;font-weight:750;letter-spacing:.7px;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.band .step-num,.approach .step-num{color:var(--leaf)}
+.photo-guides{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.photo-guides img{width:100%}
+.faq{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line);padding:22px 0}
+.faq-item h3{font-size:20px;margin-bottom:10px}
+.faq-item p:last-child{margin-bottom:0}
+.mock{background:var(--paper-2)}
+.mock .card{background:transparent}
 
-/* ---------- Bloc newsletter / formulaire ---------- */
-.newsletter-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.newsletter-art{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
-.newsletter-art img{width:100%;border-radius:var(--radius)}
+/* ---------- Module interactif : saisie → résultat ---------- */
+/* Quiz, test de maturité, calculateur, simulateur (bloc `module-interactif`).
+   Le résultat est masqué par défaut (`[hidden]`) et révélé par le script de la page :
+   la feuille ne porte que le rendu. */
+.module{background:transparent;border:1px solid var(--line);padding:36px 32px}
+.module-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.module-head h3{margin:0}
+.module-step{font-size:12px;font-weight:750;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.module-q{font-size:18px;font-weight:750;color:var(--ink);margin-bottom:16px}
+.module-q:last-child{margin-bottom:0}
+.module-opts{display:grid;gap:10px;margin-bottom:24px}
+.module-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:14px 18px;font-size:15px;color:var(--muted);cursor:pointer;transition:border-color .2s,background .2s}
+.module-opt:hover{border-color:var(--ink)}
+.module-opt:has(input:checked){border-color:var(--green);background:var(--paper-2)}
+.module-opt input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--green)}
+.module-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.module-fields label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.module-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.module-result{border-top:1px solid var(--line);margin-top:28px;padding-top:28px}
+.module-result[hidden]{display:none}
+.module-score{font-weight:750;font-size:44px;line-height:1;letter-spacing:-1.5px;color:var(--ink)}
+.module-verdict{font-size:16px;color:var(--muted);margin-top:14px}
+.module-note{font-size:14px;color:var(--muted);margin-top:12px}
 
-/* ---------- Bloc média + texte ----------
-   Même grille que le bloc newsletter, sans en porter le nom : deux colonnes dont
-   une image, pour une mise en avant de page (accueil, pages piliers). */
-.split{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.split-art{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
-.split-art img{width:100%;height:auto;border-radius:var(--radius)}
-.split .cta-actions{margin-top:32px}
+/* ---------- Agenda d'événements : chronologie datée ---------- */
+.agenda{display:flex;flex-direction:column;gap:44px}
+.agenda-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.agenda-head h3{margin:0}
+.agenda-list{display:flex;flex-direction:column;gap:14px}
+.agenda-item{display:flex;align-items:flex-start;gap:24px;background:transparent;border:1px solid var(--line);padding:24px}
+.agenda-date{flex:0 0 auto;width:88px;text-align:center;background:var(--clay);padding:14px 8px}
+.agenda-date b{display:block;font-size:28px;font-weight:750;line-height:1;color:var(--ink)}
+.agenda-date span{display:block;margin-top:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.agenda-body{flex:1;min-width:0}
+.agenda-body h3,.agenda-body h4{font-size:20px;margin-bottom:8px}
+.agenda-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:14px}
+.agenda-action{flex:0 0 auto;align-self:center}
+.agenda-item.is-past{background:var(--paper-2)}
+.agenda-item.is-past .agenda-date{background:transparent;border:1px solid var(--line)}
+
+/* ============================================================
+   13. PREUVE CHIFFRÉE
+   ============================================================ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.stats-4{grid-template-columns:repeat(4,1fr)}
+.stat{border:1px solid var(--rule);padding:32px 24px}
+.band .stat,.approach .stat{border-color:var(--rule)}
+.stat b{display:block;font-weight:750;font-size:52px;line-height:1;letter-spacing:-2px;color:var(--leaf)}
+.stat span{display:block;margin-top:12px;font-size:14px;color:var(--pale);line-height:1.6}
+.quote{display:flex;gap:32px;align-items:center;border:1px solid var(--rule);padding:36px;margin-top:24px}
+.quote img{width:120px;height:120px;object-fit:cover;flex:0 0 120px}
+.quote blockquote{margin:0 0 14px;font-weight:750;font-size:clamp(20px,2.2vw,26px);line-height:1.35;letter-spacing:-.6px;color:var(--white)}
+.quote cite{font-style:normal;font-size:13px;font-weight:700;color:var(--leaf)}
+.quote cite span{display:block;color:var(--pale);font-weight:400;margin-top:4px}
+
+/* ============================================================
+   14. FORMULAIRES ET ALERTES
+   Champ carré à contour fin, libellé au-dessus, message d'erreur désigné par
+   l'attribut `aria-invalid` autant que par la couleur.
+   ============================================================ */
+.field{display:block;width:100%;background:transparent;border:1px solid var(--field);border-radius:0;padding:12px;font:inherit;font-size:15px;color:var(--ink)}
+.field::placeholder{color:var(--muted)}
+.field:focus{outline:3px solid rgba(113,147,34,.45);border-color:var(--ink)}
 .form{display:flex;flex-direction:column;gap:14px;margin-top:28px;max-width:460px}
-.form .btn{justify-content:center}
-.form-note{font-size:14px;color:var(--ink);margin:0}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--moss)}
-.consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--forest)}
-
-/* ---------- Alertes : message d'alerte, d'erreur, de succès, d'information ----------
-   Composant nº7 du socle. Le conteneur porte `role="status"` (succès, information) ou
-   `role="alert"` (erreur) ; la page anime le contenu, la feuille n'assure que le rendu.
-   Couleur jamais seule : chaque état porte une icône et un titre explicites. */
-.alert{display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border:1px solid var(--line-2);border-left:4px solid var(--line-2);border-radius:14px;background:var(--mist);color:var(--deep);font-size:15px;line-height:1.55}
-.alert strong{display:block;font-family:Figtree,sans-serif;font-size:16px;font-weight:700;letter-spacing:-.2px;margin-bottom:4px;color:var(--ink)}
+.form label{display:block;font-size:13px;color:var(--ink);margin-bottom:16px}
+.form label .field{margin-top:8px}
+.form .btn{align-self:flex-start}
+.form-note{font-size:13px;color:var(--muted);margin:0}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--muted)}
+.consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--green)}
+/* Alertes : le conteneur porte `role="status"` (information, succès) ou
+   `role="alert"` (erreur). Chaque état porte une icône et un titre explicites. */
+.alert{display:flex;min-width:0;align-items:flex-start;gap:14px;padding:18px 22px;border:1px solid var(--line);border-left:4px solid var(--muted);background:var(--paper-2);color:var(--ink);font-size:15px;line-height:1.55}
+.alert strong{display:block;font-size:15px;font-weight:750;margin-bottom:4px;color:var(--ink)}
 .alert p{margin:0;font-size:15px;line-height:1.55;color:inherit}
 .alert .icon{flex:0 0 auto;width:22px;height:22px;margin-top:1px}
-.alert a{color:inherit}
-.alert-error{background:var(--clay);border-color:var(--clay-deep);border-left-color:#b3261e;color:var(--ink)}
-.alert-success{background:var(--mist);border-color:var(--line-2);border-left-color:#4d7c0f;color:var(--deep)}
-.alert-info{background:var(--mist);border-color:var(--line-2);border-left-color:var(--forest);color:var(--deep)}
-
-/* États de champ : le champ fautif est désigné par l'attribut, jamais par la couleur seule. */
-.field[aria-invalid="true"]{border-color:#b3261e;background:var(--clay)}
+.alert a{color:inherit;text-decoration:underline}
+/* Les enfants de l'alerte sont des éléments flex : sans `min-width:0`, un jeton
+   long (URL, chemin) imposerait sa largeur minimale et ferait déborder le bloc. */
+.alert > *{min-width:0}
+.alert-error{border-left-color:#B3261E;background:#F3E4E2}
+.alert-success{border-left-color:#4D7C0F;background:var(--paper-2)}
+.alert-info{border-left-color:var(--green);background:var(--paper-2)}
+.field[aria-invalid="true"]{border-color:#B3261E;background:#F3E4E2}
 .field[aria-invalid="true"]:focus{outline-color:rgba(179,38,30,.45)}
-.field-msg{font-size:13px;line-height:1.5;color:var(--moss);margin:0}
-.field-msg.error{color:#8c1d18}
+.field-msg{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.field-msg.error{color:#8C1D18}
 
-/* ---------- Déclinaisons d'eyebrow et de bouton sur fonds sombres ---------- */
-.mist .eyebrow{background:var(--white)}
-.cta .eyebrow{background:rgba(188,233,85,.14);color:var(--lime)}
-.band .btn.secondary,.cta .btn.secondary{border-color:rgba(255,255,255,.4);color:var(--white)}
-.band .btn.secondary:hover,.band .btn.secondary:focus-visible,.cta .btn.secondary:hover,.cta .btn.secondary:focus-visible{background:var(--lime);border-color:var(--lime);color:var(--forest)}
-.cta-actions{display:flex;gap:14px;flex-wrap:wrap}
-
-/* ---------- Pied de page : colonnes de liens ---------- */
+/* ============================================================
+   15. PIED DE PAGE
+   Sur le papier, séparé par un filet : marque à gauche, mots de la marque à
+   droite, colonnes de liens, mentions en petits caractères.
+   ============================================================ */
+.footer{background:var(--paper);color:var(--ink);padding:0 0 28px}
+.footer-brand{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:30px;padding:20px 0 45px}
+.footer-brand .brand{align-self:flex-start}
+.footer .qualiopi{height:46px;width:auto;display:block}
+.footer .source{font-size:12px;color:var(--muted);max-width:340px}
+.footer p{font-size:12px;line-height:1.6;color:var(--muted)}
+.footer .text-link{margin-top:20px;align-self:flex-start}
+.footer h4{font-size:11px;font-weight:750;letter-spacing:1px;text-transform:uppercase;color:var(--ink);margin-bottom:16px}
 .footer-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;padding-bottom:44px}
-.footer-col a{display:block;font-size:15px;color:#c9d5cf;margin:11px 0;transition:color .3s}
-.footer-col a:hover{color:var(--lime)}
-.footer-brand{display:flex;align-items:center;flex-wrap:wrap;gap:18px;padding-bottom:44px}
-.footer-brand .qualiopi{height:46px;width:auto;display:block}
-.footer-brand .source{font-size:14px;color:#a9bcb5}
+.footer-col a{display:block;font-size:12px;color:var(--muted);margin:11px 0;transition:color .2s}
+.footer-col a:hover{color:var(--green)}
+.footer-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:10px;color:var(--muted)}
+.footer-bottom a{color:var(--muted)}
+.footer-bottom a:hover{color:var(--green)}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px}
+.footer-links{display:flex;flex-direction:column;gap:12px;font-size:12px}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--green)}
 
-/* ---------- Boîte de dialogue (fenêtre modale) ----------
-   <dialog> natif : le focus, la touche Échap et l'inertie du fond sont gérés par le
-   navigateur ; la page n'ouvre et ne ferme que la fenêtre, la feuille n'assure que
-   le rendu. Le bouton de fermeture reste atteignable au clavier, jamais une croix
-   seule sans libellé. */
-.dialog{border:0;border-radius:var(--radius);padding:0;width:calc(100% - 32px);max-width:580px;background:var(--white);color:var(--ink);box-shadow:0 24px 60px rgba(0,26,16,.35)}
-.dialog::backdrop{background:rgba(0,26,16,.55)}
-.dialog-inner{padding:36px 32px}
-.dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.dialog-close{flex:0 0 auto;width:42px;height:42px;border:1px solid var(--line-2);border-radius:var(--pill);background:var(--white);color:var(--ink);font-size:20px;line-height:1}
-.dialog-close:hover,.dialog-close:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
-.dialog .form{margin-top:24px}
+/* ============================================================
+   16. FENÊTRE MODALE
+   <dialog> natif : le focus, la touche Échap et l'inertie du fond sont gérés par
+   le navigateur. La fermeture porte un libellé, jamais une croix seule.
+   ============================================================ */
+.dialog{border:1px solid var(--line);border-radius:0;padding:35px;width:calc(100% - 35px);max-width:480px;background:var(--paper);color:var(--ink)}
+.dialog::backdrop{background:rgba(38,38,32,.5)}
+.dialog h2{font-size:30px;color:var(--ink);margin:20px 0}
+.dialog p{font-size:14px;line-height:1.7;color:var(--muted)}
+.dialog .form{margin-top:20px;max-width:none;gap:0}
+.dialog .form .btn{align-self:flex-start}
+.close,.dialog-close{float:right;background:transparent;border:0;padding:0;font-size:24px;line-height:1;color:var(--ink)}
+.close:hover,.dialog-close:hover{color:var(--green)}
 
-/* ---------- Responsive ---------- */
+/* ============================================================
+   17. PLACEHOLDERS
+   Repères de travail des pages en cours de rédaction. Ils disparaissent au fur
+   et à mesure que le contenu arrive.
+   ============================================================ */
+.placeholder{border:1px dashed var(--line);min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:26px;color:var(--muted);background:transparent}
+.placeholder strong{font-size:19px;font-weight:750;color:var(--ink);max-width:380px}
+.placeholder small{font-size:12px;line-height:1.45;color:var(--muted)}
+/* Dans le héros sombre, les repères de rédaction passent en clair : sur le fond
+   sombre, l'encre et le gris secondaire tomberaient sous 2,5:1. */
+.hero .placeholder{border-color:rgba(255,255,255,.25);color:var(--pale)}
+.hero .placeholder strong{color:var(--white)}
+
+/* ============================================================
+   18. UTILITAIRES
+   ============================================================ */
+.cross{display:block;width:100%;height:1px;background:var(--line);border:0;margin:0}
+
+/* ============================================================
+   19. RESPONSIVE
+   Trois seuils : 1000 px (la colonne se resserre, le héros se rééquilibre),
+   960 px (les grilles passent à deux colonnes), 700 px (tout s'empile).
+   ============================================================ */
+@media(min-width:1600px){
+  .hero-grid{min-height:620px}
+  .hero-copy h1{font-size:64px}
+}
 @media(max-width:1100px){
   .grid-4,.stats-4,.icon-grid{grid-template-columns:repeat(2,1fr)}
   .footer-cols{grid-template-columns:repeat(3,1fr)}
 }
+@media(max-width:1000px){
+  :root{--pad:30px}
+  h1{font-size:44px}
+  .top nav{gap:16px}
+  .links{gap:16px}
+  .hero{min-height:550px}
+  .hero-grid{grid-template-columns:48% 52%;min-height:550px}
+  .hero-copy{padding:35px 25px}
+  .hero .eyebrow{font-size:8px}
+  .hero p{font-size:14px}
+  .course h3{font-size:24px}
+  .contact{padding:35px}
+  .contact h2{font-size:34px}
+}
 @media(max-width:960px){
-  :root{--section:80px}
-  .shell{padding:0 18px}
-  .top nav{height:70px}
-  .links{display:none}
-  .grid,.stats,.icon-grid,.route-grid,.avatar-grid,.stats-4{grid-template-columns:1fr 1fr}
-  .hero-grid,.newsletter-grid,.footer-grid,.split{grid-template-columns:1fr}
-  /* Dégage la capsule fixe : bas de capsule à 86 px + respiration */
-  .hero{padding:110px 0 70px}
-  .hero.compact{padding:120px 0 70px}
+  .grid,.grid-2,.stats,.route-grid,.avatar-grid,.grid-4,.stats-4,.icon-grid{grid-template-columns:1fr 1fr}
+  .footer-cols{grid-template-columns:repeat(2,1fr)}
   .card.wide{flex-direction:column}
   .card.wide .card-media{flex:auto;min-height:300px}
   .quote{flex-direction:column;text-align:center}
-  .footer-cols{grid-template-columns:repeat(2,1fr)}
-  .cta{padding:40px 28px}
   .agenda-item{flex-wrap:wrap}
   .alert{padding:16px 18px}
 }
+@media(max-width:700px){
+  :root{--pad:20px}
+  section{padding:60px 0}
+  .top nav{height:95px}
+  .brand img{height:70px}
+  .links{display:none}
+  .nav-cta{margin-left:auto;padding:12px;font-size:10px;gap:8px}
+  .hero{margin-top:15px}
+  .hero-grid{display:flex;flex-direction:column}
+  .hero-copy{padding:32px 27px}
+  .hero-copy h1{font-size:46px;letter-spacing:-1px;margin:28px 0 20px}
+  .hero p{font-size:15px}
+  .hero-actions{margin-bottom:26px}
+  .hero-art{min-height:0;display:block}
+  .hero-art img{width:100%}
+  .hero-foot{font-size:11px}
+  .ribbon{justify-content:flex-start;gap:18px;flex-wrap:wrap}
+  .ribbon span{display:none}
+  .ribbon b{font-size:10px}
+  .chapter-number{margin-bottom:27px;font-size:10px}
+  .section-head p{font-size:14px}
+  h2{font-size:32px}
+  .filters{margin-bottom:10px}
+  .filter,.pill{font-size:10px;padding:13px 10px}
+  .course{display:flex;flex-direction:column;gap:22px}
+  .course-art{width:100%}
+  .course-body{padding:0 0 5px}
+  .course-body::before{position:static;display:block;font-size:18px;margin-bottom:10px}
+  .course h3{font-size:24px}
+  .course p{font-size:14px;margin-bottom:15px}
+  .course a{font-size:12px;gap:15px}
+  .steps{grid-template-columns:1fr;gap:25px}
+  .step h3{margin-top:17px}
+  .step p{max-width:none}
+  .tail-grid,.split,.newsletter-grid,.photo-guides{grid-template-columns:1fr;gap:25px}
+  .tail{padding-top:58px}
+  .tail .chapter-number{margin-bottom:45px}
+  .tail h2{font-size:31px}
+  .cta,.contact{display:block;padding:28px}
+  .cta h2,.contact h2{font-size:29px}
+  .cta .btn,.contact .btn{margin-top:26px}
+  .cta p,.contact p{font-size:13px}
+  .footer-brand{flex-wrap:wrap;align-items:flex-start}
+  .footer-brand .brand{align-self:flex-start}
+  .footer-cols{grid-template-columns:repeat(2,1fr);gap:20px}
+  .footer p{font-size:11px}
+  .footer .text-link{margin-top:0}
+  .footer-bottom{font-size:9px}
+}
 @media(max-width:580px){
-  :root{--section:40px}
-  /* Dégage la capsule fixe : bas de capsule à 82 px + respiration */
-  .hero{padding:104px 0 70px}
-  .top{padding:12px 0 8px}
-  .grid,.stats,.icon-grid,.route-grid,.avatar-grid,.stats-4{grid-template-columns:1fr}
-  .section-head{display:block}
-  .section-head p{margin-top:16px}
+  .grid,.grid-2,.stats,.route-grid,.avatar-grid,.grid-4,.stats-4,.icon-grid,.footer-cols{grid-template-columns:1fr}
   .card-media{min-height:200px}
-  .footer-cols{grid-template-columns:1fr}
   .module{padding:28px 20px}
   .module-score{font-size:36px}
-  .dialog-inner{padding:28px 22px}
   .agenda-item{flex-direction:column;gap:18px}
   .agenda-date{width:auto;display:inline-flex;align-items:center;gap:10px;padding:10px 16px}
   .agenda-date b{font-size:20px}
