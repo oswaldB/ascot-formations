@@ -1,0 +1,414 @@
+/* ============================================================================
+   ASCOT FORMATIONS — FEUILLE DE STYLE PARTAGÉE
+   ----------------------------------------------------------------------------
+   Source unique du système visuel, référencée par toutes les pages :
+     <link rel="stylesheet" href="/assets/ascot.css">
+
+   Démonstration et documentation vivante : specs/Styleguide_Ascot_Formations.html
+   Règle : toute évolution de jeton ou de composant se décide dans le styleguide,
+   puis se reporte ici. Les pages ne contiennent plus aucun CSS de composant.
+
+   Sommaire
+     1. Jetons            2. Base              3. Navigation capsule
+     4. Boutons           5. Typographie       6. Sections, grilles, fonds
+     7. Héros             8. Cartes            9. Étiquettes et filtres
+    10. Composants de contenu (fiches, formulaires, étapes, citation, listes)
+    11. Preuve chiffrée  12. Bandeau d'appel  13. Pied de page  14. Icônes
+    15. Utilitaires      16. Blocs de page (routeur, avatars, couvertures,
+       newsletter)       17. Responsive
+   ============================================================================ */
+
+/* ============================================================
+   ASCOT FORMATIONS — SYSTÈME VISUEL ALIGNÉ SUR TUTOMILE
+   Structure, échelle typo, composants et palette repris du
+   template TutoMile (Webflow) · matière en pâte modelée Ascot
+   ============================================================ */
+:root{
+  /* Couleurs — jetons TutoMile */
+  --lime:#bce955;        /* action primaire */
+  --forest:#0e3128;      /* fond sombre, secondaire */
+  --ink:#001a10;         /* texte */
+  --moss:#334840;        /* texte secondaire */
+  --deep:#15372e;        /* hover / appui */
+  --mist:#f3f5f4;        /* fond clair */
+  --line:#e7eae9;        /* bordures cartes */
+  --line-2:#cfd6d4;      /* bordures boutons */
+  --white:#fff;
+  /* Matière Ascot */
+  --clay:#f4e9df;
+  --clay-deep:#e3d3c2;
+  /* Géométrie */
+  --radius:20px;
+  --pill:500px;
+  --section:120px;
+  --shadow-card:6px 8px 32px rgba(14,49,40,.07);
+  --shadow-nav:0 4px 32px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font-family:Manrope,Arial,sans-serif;font-weight:500}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+/* Un élément retiré par [hidden] doit le rester même quand son composant porte un
+   `display` explicite (.card, .grid…). Sans cette règle, un filtre qui masque une
+   carte par script reste sans effet visible. */
+[hidden]{display:none!important}
+.shell{max-width:1360px;margin:auto;padding:0 20px}
+
+/* ---------- Navigation : barre capsule blanche flottante ---------- */
+.top{position:fixed;inset:0 0 auto;z-index:100;width:100%;padding:16px 0 12px;pointer-events:none}
+/* Règle scopée à la capsule : un <nav> nu (fil d'Ariane, etc.) reste neutre.
+   Pas de padding horizontal ici : il est porté par .shell (0 20px), comme avant le scoping,
+   sinon .top nav (0,1,1) battrait .shell (0,1,0) et décalerait la capsule de 8 px. */
+.top nav{pointer-events:auto;height:78px;display:flex;align-items:center;gap:32px;background:var(--white);border-radius:55px;box-shadow:var(--shadow-nav)}
+.brand{display:flex;align-items:center;flex:0 0 auto}
+.brand img{height:44px;width:auto}
+.links{display:flex;gap:28px;margin-left:auto;font-family:Figtree,sans-serif;font-size:16px;font-weight:500}
+.links a{color:var(--moss);transition:color .3s}
+.links a:hover,.links a:first-child{color:var(--ink);font-weight:600}
+.nav-cta{margin-left:12px}
+
+/* ---------- Boutons : capsules, libellé qui glisse au survol ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;background:var(--lime);border:1px solid var(--lime);color:var(--ink);font-family:Figtree,sans-serif;font-size:18px;font-weight:700;letter-spacing:-.5px;line-height:1.1em;padding:14px 32px;border-radius:var(--pill);transition:background-color .3s,border-color .3s,color .3s;white-space:nowrap}
+.nav-cta{padding:13px 26px;font-size:16px}
+.btn:hover,.btn:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.btn.secondary{background:transparent;border:1px solid var(--line-2);color:var(--ink)}
+.btn.secondary:hover,.btn.secondary:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.swap{position:relative;display:inline-block;height:1.1em;line-height:1.1em;overflow:hidden;vertical-align:bottom}
+.swap b{display:block;font-weight:inherit;transition:transform .35s cubic-bezier(.65,0,.35,1)}
+.swap b:nth-child(2){position:absolute;left:0;top:100%}
+.btn:hover .swap b,.btn:focus-visible .swap b{transform:translateY(-100%)}
+
+/* ---------- Typographie ---------- */
+h1,h2,h3,h4,p{margin-top:0}
+h1,h2,h3,h4{font-family:Figtree,sans-serif;font-weight:800;letter-spacing:-.03em;margin-bottom:0}
+h1{font-size:clamp(42px,6.2vw,72px);line-height:1.11em;margin-bottom:24px}
+h2{font-size:clamp(32px,4.6vw,52px);line-height:1.15em;margin-bottom:16px}
+h3{font-size:clamp(24px,3vw,40px);line-height:1.2em}
+h4{font-size:24px;line-height:1.32em;font-weight:700}
+p{line-height:1.8em;color:var(--moss);font-size:17px}
+.eyebrow{display:inline-block;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--moss);background:var(--mist);border-radius:var(--pill);padding:8px 16px;margin-bottom:22px}
+.band .eyebrow{background:rgba(188,233,85,.14);color:var(--lime)}
+
+/* ---------- Sections & grilles ---------- */
+section{padding:var(--section) 0;scroll-margin-top:110px}
+/* Garde : `section` est un sélecteur d'élément. Toute <section> imbriquée (espace membre,
+   formulaires, panneaux) hériterait sinon de 120 px de padding et d'un scroll-margin inutile.
+   Cette règle neutralise la fuite pour les sections internes au contenu. */
+section section{padding:0;scroll-margin-top:0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:48px}
+.section-head p{max-width:520px;margin-bottom:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.band{background:var(--forest);color:var(--white)}
+.band h2,.band h3,.band h4{color:var(--white)}
+.band p{color:#c9d5cf}
+.mist{background:var(--mist)}
+
+/* ---------- Héros : fond vert forêt, insert argile ---------- */
+.hero{background:var(--forest);color:var(--white);padding:120px 0 110px;overflow:hidden}
+.hero h1{color:var(--white)}
+.hero h1 span{color:var(--lime)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero-copy p{font-size:19px;max-width:560px;color:#c9d5cf;margin-bottom:0}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0}
+.hero .btn.secondary{border-color:rgba(255,255,255,.4);color:var(--white)}
+.hero .btn.secondary:hover,.hero .btn.secondary:focus-visible{background:var(--lime);border-color:var(--lime);color:var(--forest)}
+.meta{display:flex;flex-wrap:wrap;gap:10px;font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:#c9d5cf}
+.meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--pill);padding:8px 15px}
+.hero-art{background:var(--clay);border-radius:28px;padding:26px 26px 0;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.hero-art img{width:100%;min-height:380px;object-fit:cover;border-radius:20px 20px 0 0;mix-blend-mode:multiply}
+
+/* ---------- Frise d'univers (bandeau sous le héros) ----------
+   Repères de thématiques, pas une navigation : les libellés sont des étiquettes
+   non cliquables, séparées du chapeau par un simple trait. */
+.ribbon{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;border-bottom:1px solid var(--line);padding:26px 0;font-size:15px;color:var(--moss)}
+
+/* ---------- Cartes de cours ---------- */
+.card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);box-shadow:12px 18px 48px rgba(14,49,40,.14)}
+.card-media{min-height:220px;background:var(--clay);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-media img{width:100%;height:100%;object-fit:cover;object-position:bottom}
+.card-media.logo-img img{object-fit:contain;padding:34px;background:var(--white)}
+.card-body{padding:32px 24px;display:flex;flex-direction:column;flex:1}
+.card-body h4{margin:15px 0 10px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:auto;padding-top:20px;font-family:Figtree,sans-serif;font-size:14px;font-weight:700}
+.card-footer a{color:var(--moss)}
+.card-footer a:hover{color:var(--forest)}
+
+/* ---------- Étiquettes ---------- */
+.tag{display:inline-block;background:#eaf6cf;color:var(--forest);border-radius:var(--pill);padding:7px 14px;font-family:Figtree,sans-serif;font-size:12px;font-weight:700}
+.pill{padding:11px 18px;border:1px solid var(--line-2);border-radius:var(--pill);font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:var(--moss);background:var(--white);transition:all .25s}
+.pill:hover{border-color:var(--forest);color:var(--forest)}
+.pill.active{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- Cartes de contenu ---------- */
+.component{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:32px 24px;box-shadow:var(--shadow-card)}
+.component h4{font-size:20px;margin-bottom:14px}
+.field{width:100%;border:1px solid var(--line-2);border-radius:12px;padding:16px 18px;font:inherit;font-size:16px;color:var(--ink);background:var(--white)}
+.field::placeholder{color:#5f736b} /* 5,06:1 sur blanc — #7d8f88 ne donnait que 3,41:1 */
+.field:focus{outline:3px solid rgba(188,233,85,.55);border-color:var(--forest)}
+.spec{font-family:Figtree,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin:12px 0 0}
+.small{font-size:14px;line-height:1.6}
+.rule{border-top:1px solid var(--line);padding-top:24px;margin-top:30px}
+
+
+
+/* ---------- Module interactif : saisie → résultat ---------- */
+/* Quiz, test de maturité, calculateur, simulateur, générateur (bloc `module-interactif`).
+   Le résultat est masqué par défaut (`[hidden]`) et révélé par le script de la page :
+   la feuille ne porte que le rendu. Aucune valeur hors jetons. */
+.module{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:36px 32px}
+.module-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.module-head h3{margin:0}
+.module-step{font-family:Figtree,sans-serif;font-size:13px;font-weight:700;color:var(--moss)}
+.module-q{font-family:Figtree,sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px}
+.module-q:last-child{margin-bottom:0}
+.module-opts{display:grid;gap:10px;margin-bottom:24px}
+.module-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;font-size:15px;color:var(--moss);cursor:pointer;transition:border-color .25s,background .25s}
+.module-opt:hover{border-color:var(--forest)}
+.module-opt:has(input:checked){border-color:var(--forest);background:var(--mist)}
+.module-opt input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--forest)}
+.module-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.module-fields label{display:block;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.module-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.module-result{border-top:1px solid var(--line);margin-top:28px;padding-top:28px}
+.module-result[hidden]{display:none}
+.module-score{font-family:Figtree,sans-serif;font-weight:900;font-size:44px;line-height:1;letter-spacing:-.03em;color:var(--forest)}
+.module-verdict{font-size:16px;color:var(--moss);margin-top:14px}
+.module-note{font-size:14px;color:var(--moss);margin-top:12px}
+
+/* ---------- Agenda d'événements : chronologie datée ---------- */
+/* Bloc `agenda-evenements` de /evenements/ : la date prime sur l'image,
+   séparation « à venir / passés », lien d'inscription. */
+.agenda{display:flex;flex-direction:column;gap:44px}
+.agenda-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.agenda-head h3{margin:0}
+.agenda-list{display:flex;flex-direction:column;gap:14px}
+.agenda-item{display:flex;align-items:flex-start;gap:24px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:24px}
+.agenda-date{flex:0 0 auto;width:88px;text-align:center;background:var(--clay);border-radius:14px;padding:14px 8px;font-family:Figtree,sans-serif}
+.agenda-date b{display:block;font-size:28px;font-weight:900;line-height:1;color:var(--forest)}
+.agenda-date span{display:block;margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--moss)}
+.agenda-body{flex:1;min-width:0}
+.agenda-body h4{font-size:20px;margin-bottom:8px}
+.agenda-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--moss);margin-bottom:14px}
+.agenda-action{flex:0 0 auto;align-self:center}
+.agenda-item.is-past{background:var(--mist);box-shadow:none}
+.agenda-item.is-past .agenda-date{background:var(--line-2)}
+
+
+/* ---------- Preuve / chiffres ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.stat{border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:32px 24px;background:rgba(255,255,255,.04)}
+.stat b{display:block;font-family:Figtree,sans-serif;font-weight:900;font-size:52px;line-height:1;letter-spacing:-.04em;color:var(--lime)}
+.stat span{display:block;margin-top:12px;font-size:15px;color:#c9d5cf;line-height:1.6}
+
+
+/* ---------- Bandeau d'appel ---------- */
+.cta{border-radius:28px;background:var(--forest);color:var(--white);padding:56px;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+.cta h2{max-width:620px;margin-bottom:14px}
+.cta p{color:#c9d5cf;margin-bottom:0;max-width:560px}
+.cta-form{display:flex;gap:12px;flex-wrap:wrap}
+.cta-form .field{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:var(--white);min-width:280px}
+.cta-form .field::placeholder{color:#a9bcb5}
+.cta-form .field:focus{outline:3px solid rgba(188,233,85,.55)}
+
+/* ---------- Pied de page ---------- */
+.footer{background:var(--forest);color:var(--white);padding:80px 0 40px}
+.footer h4{font-size:15px;color:var(--white);margin-bottom:16px;font-family:Figtree,sans-serif;font-weight:700;letter-spacing:.01em}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px}
+.footer-links{display:flex;flex-direction:column;gap:12px;font-size:16px}
+.footer-links a{color:#c9d5cf;transition:color .3s}
+.footer-links a:hover{color:var(--lime)}
+.footer .brand img{height:46px;filter:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.14);padding-top:28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.footer .source{font-size:14px;color:#a9bcb5}
+.footer .source a{color:var(--lime);text-decoration:underline}
+
+/* ---------- Icônes : images avec src ---------- */
+.icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.icon-box{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px 20px;text-align:center;box-shadow:var(--shadow-card)}
+.icon-box img.icon{width:48px;height:48px;object-fit:contain;margin:0 auto 16px}
+.icon-box h4{font-size:17px;margin-bottom:8px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:var(--mist);border-radius:6px;padding:2px 6px;overflow-wrap:anywhere}
+
+/* ---------- Titres de carte ----------
+   Les pages produites depuis les fiches emploient `h3` : le titre d'une carte est un
+   `###` dans la fiche, et un `h4` sous un `h2` ferait sauter un niveau de titre. Ces
+   règles donnent au `h3` la métrique que le `h4` avait dans le design. */
+.card-body h3{margin:15px 0 10px;font-size:24px;line-height:1.32em;font-weight:700}
+.icon-box h3{font-size:17px;margin-bottom:8px}
+.route-card h3{font-size:19px;margin:0;font-weight:700;line-height:1.3}
+.component h3{font-size:20px;margin-bottom:14px}
+.agenda-body h3{font-size:20px;margin-bottom:8px}
+
+/* ---------- Placeholders / notes ---------- */
+.placeholder{background:linear-gradient(135deg,var(--clay-deep),var(--clay));border:2px dashed var(--clay-deep);border-radius:var(--radius);min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:26px;color:var(--moss)}
+.placeholder strong{font:800 19px Figtree,sans-serif}
+.placeholder small{font-size:13px;line-height:1.5}
+
+/* ---------- Répartition : grilles à 4 colonnes ---------- */
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.stats-4{grid-template-columns:repeat(4,1fr)}
+.section-cta{text-align:center;margin-top:48px}
+
+/* ---------- Fils d'Ariane ---------- */
+.crumbs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-family:Figtree,sans-serif;font-size:14px;font-weight:600;color:#a9bcb5;margin-bottom:22px}
+.crumbs a{color:#c9d5cf;transition:color .3s}
+.crumbs a:hover{color:var(--lime)}
+
+/* ---------- Héros compact (pages intérieures) ---------- */
+.hero.compact{padding:150px 0 90px}
+.hero-copy{max-width:780px}
+
+/* ---------- Routeur par objectif ---------- */
+.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.route-card{display:flex;align-items:center;gap:18px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s,border-color .25s}
+.route-card:hover{transform:translateY(-6px);box-shadow:12px 18px 48px rgba(14,49,40,.14);border-color:var(--lime)}
+.route-icon{width:48px;height:48px;flex:0 0 48px;object-fit:contain;border-radius:12px}
+.route-card h4{font-size:19px;margin:0;font-weight:700;line-height:1.3}
+.route-card .arrow{margin-left:auto;color:var(--forest);font-weight:800;font-size:18px}
+
+/* ---------- Avatars métiers ---------- */
+.avatar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.avatar-grid .card-media{min-height:0}
+.avatar-grid .card-media img{aspect-ratio:4/5;object-fit:cover;object-position:center}
+
+/* ---------- Cartes larges (mise en avant) ---------- */
+.card.wide{grid-column:1/-1;flex-direction:row;align-items:stretch}
+.card.wide .card-media{flex:0 0 42%;min-height:300px}
+.card.wide .card-media img{height:100%;object-fit:cover}
+.card.wide .card-body{justify-content:center}
+
+/* ---------- Couvertures de documents ---------- */
+.card-media.cover{min-height:0;aspect-ratio:4/3;background:var(--white);border-bottom:1px solid var(--line)}
+.card-media.cover img{object-fit:contain;padding:26px}
+
+/* ---------- Étiquettes secondaires ---------- */
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tags-row .tag{background:var(--mist);color:var(--moss)}
+.pills.filters{margin:0 0 28px}
+
+/* ---------- Numéro d'étape ---------- */
+.step-num{font-family:Figtree,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--forest);background:#eaf6cf;border-radius:var(--pill);padding:7px 14px;display:inline-block;margin-bottom:18px}
+
+/* ---------- Citation / témoignage ---------- */
+.quote{display:flex;gap:32px;align-items:center;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:36px;margin-top:24px}
+.quote img{width:120px;height:120px;border-radius:50%;object-fit:cover;flex:0 0 120px}
+.quote blockquote{margin:0 0 14px;font-family:Figtree,sans-serif;font-weight:700;font-size:clamp(20px,2.2vw,26px);line-height:1.35;letter-spacing:-.02em;color:var(--white)}
+.quote cite{font-style:normal;font-family:Figtree,sans-serif;font-size:14px;font-weight:700;color:var(--lime)}
+.quote cite span{display:block;color:#c9d5cf;font-weight:500;margin-top:4px}
+
+/* ---------- Liste à coches ---------- */
+ul.check{list-style:none;padding:0;margin:28px 0 0}
+ul.check li{position:relative;padding-left:28px;margin:14px 0;color:var(--moss);font-size:16px;line-height:1.7}
+ul.check li::before{content:"\2713";position:absolute;left:0;color:var(--forest);font-weight:800}
+
+/* ---------- Bloc newsletter / formulaire ---------- */
+.newsletter-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.newsletter-art{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+.newsletter-art img{width:100%;border-radius:var(--radius)}
+
+/* ---------- Bloc média + texte ----------
+   Même grille que le bloc newsletter, sans en porter le nom : deux colonnes dont
+   une image, pour une mise en avant de page (accueil, pages piliers). */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.split-art{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+.split-art img{width:100%;height:auto;border-radius:var(--radius)}
+.split .cta-actions{margin-top:32px}
+.form{display:flex;flex-direction:column;gap:14px;margin-top:28px;max-width:460px}
+.form .btn{justify-content:center}
+.form-note{font-size:14px;color:var(--ink);margin:0}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--moss)}
+.consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--forest)}
+
+/* ---------- Alertes : message d'alerte, d'erreur, de succès, d'information ----------
+   Composant nº7 du socle. Le conteneur porte `role="status"` (succès, information) ou
+   `role="alert"` (erreur) ; la page anime le contenu, la feuille n'assure que le rendu.
+   Couleur jamais seule : chaque état porte une icône et un titre explicites. */
+.alert{display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border:1px solid var(--line-2);border-left:4px solid var(--line-2);border-radius:14px;background:var(--mist);color:var(--deep);font-size:15px;line-height:1.55}
+.alert strong{display:block;font-family:Figtree,sans-serif;font-size:16px;font-weight:700;letter-spacing:-.2px;margin-bottom:4px;color:var(--ink)}
+.alert p{margin:0;font-size:15px;line-height:1.55;color:inherit}
+.alert .icon{flex:0 0 auto;width:22px;height:22px;margin-top:1px}
+.alert a{color:inherit}
+.alert-error{background:var(--clay);border-color:var(--clay-deep);border-left-color:#b3261e;color:var(--ink)}
+.alert-success{background:var(--mist);border-color:var(--line-2);border-left-color:#4d7c0f;color:var(--deep)}
+.alert-info{background:var(--mist);border-color:var(--line-2);border-left-color:var(--forest);color:var(--deep)}
+
+/* États de champ : le champ fautif est désigné par l'attribut, jamais par la couleur seule. */
+.field[aria-invalid="true"]{border-color:#b3261e;background:var(--clay)}
+.field[aria-invalid="true"]:focus{outline-color:rgba(179,38,30,.45)}
+.field-msg{font-size:13px;line-height:1.5;color:var(--moss);margin:0}
+.field-msg.error{color:#8c1d18}
+
+/* ---------- Déclinaisons d'eyebrow et de bouton sur fonds sombres ---------- */
+.mist .eyebrow{background:var(--white)}
+.cta .eyebrow{background:rgba(188,233,85,.14);color:var(--lime)}
+.band .btn.secondary,.cta .btn.secondary{border-color:rgba(255,255,255,.4);color:var(--white)}
+.band .btn.secondary:hover,.band .btn.secondary:focus-visible,.cta .btn.secondary:hover,.cta .btn.secondary:focus-visible{background:var(--lime);border-color:var(--lime);color:var(--forest)}
+.cta-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ---------- Pied de page : colonnes de liens ---------- */
+.footer-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;padding-bottom:44px}
+.footer-col a{display:block;font-size:15px;color:#c9d5cf;margin:11px 0;transition:color .3s}
+.footer-col a:hover{color:var(--lime)}
+.footer-brand{display:flex;align-items:center;flex-wrap:wrap;gap:18px;padding-bottom:44px}
+.footer-brand .qualiopi{height:46px;width:auto;display:block}
+.footer-brand .source{font-size:14px;color:#a9bcb5}
+
+/* ---------- Boîte de dialogue (fenêtre modale) ----------
+   <dialog> natif : le focus, la touche Échap et l'inertie du fond sont gérés par le
+   navigateur ; la page n'ouvre et ne ferme que la fenêtre, la feuille n'assure que
+   le rendu. Le bouton de fermeture reste atteignable au clavier, jamais une croix
+   seule sans libellé. */
+.dialog{border:0;border-radius:var(--radius);padding:0;width:calc(100% - 32px);max-width:580px;background:var(--white);color:var(--ink);box-shadow:0 24px 60px rgba(0,26,16,.35)}
+.dialog::backdrop{background:rgba(0,26,16,.55)}
+.dialog-inner{padding:36px 32px}
+.dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.dialog-close{flex:0 0 auto;width:42px;height:42px;border:1px solid var(--line-2);border-radius:var(--pill);background:var(--white);color:var(--ink);font-size:20px;line-height:1}
+.dialog-close:hover,.dialog-close:focus-visible{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.dialog .form{margin-top:24px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1100px){
+  .grid-4,.stats-4,.icon-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-cols{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:960px){
+  :root{--section:80px}
+  .shell{padding:0 18px}
+  .top nav{height:70px}
+  .links{display:none}
+  .grid,.stats,.icon-grid,.route-grid,.avatar-grid,.stats-4{grid-template-columns:1fr 1fr}
+  .hero-grid,.newsletter-grid,.footer-grid,.split{grid-template-columns:1fr}
+  /* Dégage la capsule fixe : bas de capsule à 86 px + respiration */
+  .hero{padding:110px 0 70px}
+  .hero.compact{padding:120px 0 70px}
+  .card.wide{flex-direction:column}
+  .card.wide .card-media{flex:auto;min-height:300px}
+  .quote{flex-direction:column;text-align:center}
+  .footer-cols{grid-template-columns:repeat(2,1fr)}
+  .cta{padding:40px 28px}
+  .agenda-item{flex-wrap:wrap}
+  .alert{padding:16px 18px}
+}
+@media(max-width:580px){
+  :root{--section:40px}
+  /* Dégage la capsule fixe : bas de capsule à 82 px + respiration */
+  .hero{padding:104px 0 70px}
+  .top{padding:12px 0 8px}
+  .grid,.stats,.icon-grid,.route-grid,.avatar-grid,.stats-4{grid-template-columns:1fr}
+  .section-head{display:block}
+  .section-head p{margin-top:16px}
+  .card-media{min-height:200px}
+  .footer-cols{grid-template-columns:1fr}
+  .module{padding:28px 20px}
+  .module-score{font-size:36px}
+  .dialog-inner{padding:28px 22px}
+  .agenda-item{flex-direction:column;gap:18px}
+  .agenda-date{width:auto;display:inline-flex;align-items:center;gap:10px;padding:10px 16px}
+  .agenda-date b{font-size:20px}
+  .agenda-date span{margin-top:0}
+  .agenda-action{align-self:stretch}
+}
